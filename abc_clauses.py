@@ -146,7 +146,7 @@ def solve_equation(n):
 def write_clause(clause, file):
     file.write(" ".join(map(str, clause)) + " 0\n")
 
-cnf_file = open(f"abb_log/cnf_files/clauses_{result}_{a}.{b}.{c}.cnf", "w")
+cnf_file = open(f"clauses_{result}_{a}.{b}.{c}.cnf", "w")
 
 with Cadical153(use_timer = True) as s:
 
@@ -209,6 +209,6 @@ with Cadical153(use_timer = True) as s:
 
 cnf_file.close()
 
-time_file = open(f"abb_log/generation_time/time_{result}_{a}.{b}.{c}.txt", "w")
+time_file = open(f"time_{result}_{a}.{b}.{c}.txt", "w")
 time_file.write("%.2f\n" % (end_time - start_time))
 time_file.close()
