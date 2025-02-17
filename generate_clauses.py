@@ -1,6 +1,5 @@
 # multiple colours, ax + by = cz
 
-from pysat.solvers import Solver, Cadical153
 import math
 import sys
 import time
@@ -9,7 +8,7 @@ k = 3 # number of colours
 n = 1 # counter
 
 result = int(sys.argv[1]) # expected result
-clause_count = 2
+clause_count = 0
 
 # equation: ax + by = cz
 a = int(sys.argv[2])
@@ -50,13 +49,27 @@ def negative_clause(col, x, y, z):
     clause = [-i for i in clause]
     return clause
 
-# one position can't be a specified colour
-def optional_clause(col, pos):
+# one position is assigned at most one colour
+def optional_clause(i, j, pos):
     clause = []
-    for i in range(1, k + 1):
-        if i != col:
-            clause.append(mapped_variable(i, pos))
+    clause.append(mapped_variable(i, pos))
+    clause.append(mapped_variable(j, pos))
     clause = [-i for i in clause]
+    return clause
+
+# symmetry breaking clauses
+
+def colour_c_cannot_appear_before_integer_cplus1():
+    clauses = []
+    clauses.append([mapped_variable(1, 1)])
+    clauses.append([mapped_variable(1, 2), mapped_variable(2, 2)])
+    return clauses
+
+def colour_3_cannot_appear_before_colours_1_2(n):
+    clause = []
+    for j in range(1, n):
+        clause.append(-mapped_variable(1, j))
+    clause.append(-mapped_variable(3, n))
     return clause
 
 # extended Euclidean algorithm
@@ -146,69 +159,75 @@ def solve_equation(n):
 def write_clause(clause, file):
     file.write(" ".join(map(str, clause)) + " 0\n")
 
-cnf_file = open(f"clauses_{result}_{a}.{b}.{c}.cnf", "w")
+cnf_file = open(f"logs/cnf_files/clauses_{result}_{a}.{b}.{c}.cnf", "w")
 
-with Cadical153(use_timer = True) as s:
+# count clauses
+while n <= result:
 
-    # count clauses
-    while n <= result:
+    clause_count += (k * (k - 1) // 2 + 1)
 
-        clause_count += (k + 1)
+    equation_solutions = solve_equation(n)
+    for i in range(len(equation_solutions)):
+        clause_count += k
 
-        equation_solutions = solve_equation(n)
-        for i in range(len(equation_solutions)):
-            clause_count += k
+    n += 1
 
-        n += 1
+# start timer
+start_time = time.time()
 
-    cnf_file.write("p cnf %d %d\n" % (result * 3, clause_count))
+# generate symmetry breaking clauses
+sb_clauses = colour_c_cannot_appear_before_integer_cplus1()
 
-    n = 1
+n = 1
+while solve_equation(n) == [] and n < result:
+    n += 1
+    sb_clauses += [colour_3_cannot_appear_before_colours_1_2(n)]
+    
+clause_count += len(sb_clauses)
 
-    # start timer
-    start_time = time.time()
+cnf_file.write("p cnf %d %d\n" % (result * 3, clause_count))
 
-    while True:
+for sb_clause in sb_clauses:
+    write_clause(sb_clause, cnf_file)
 
-        # generate symmetry breaking clauses
-        if n == 1:
-            write_clause([mapped_variable(1, n)], cnf_file)
-        elif n == 2:
-            write_clause([mapped_variable(1, n), mapped_variable(2, n)], cnf_file)
+n = 1
 
-        # generate positive clauses
-        write_clause(positive_clause(n), cnf_file)
+while True:
 
-        # list of x, y, z values that satisfy ax + by = cz
-        equation_solutions = solve_equation(n)
+    # generate positive clauses
+    write_clause(positive_clause(n), cnf_file)
 
-        # generate negative clauses
-        for i in range(len(equation_solutions)):
-            x = equation_solutions[i][0]
-            y = equation_solutions[i][1]
-            z = equation_solutions[i][2]
+    # list of x, y, z values that satisfy ax + by = cz
+    equation_solutions = solve_equation(n)
 
-            for j in range(1, k + 1):
-                write_clause(negative_clause(j, x, y, z), cnf_file)
+    # generate negative clauses
+    for i in range(len(equation_solutions)):
+        x = equation_solutions[i][0]
+        y = equation_solutions[i][1]
+        z = equation_solutions[i][2]
 
-        # generate optional clauses
-        for i in range(1, k + 1):
-            write_clause(optional_clause(i, n), cnf_file)
+        for j in range(1, k + 1):
+            write_clause(negative_clause(j, x, y, z), cnf_file)
 
-        # end timer
-        end_time = time.time()
+    # generate optional clauses
+    for i in range(1, k + 1):
+        for j in range(i + 1, k + 1):
+            write_clause(optional_clause(i, j, n), cnf_file)
 
-        # print results
-        if n == result:
-            print("%d %d %d %d" % (a, b, c, n))
-            break
-        else:
-            print("%d" % (n))
+    # print results
+    if n == result:
+        print("%d %d %d %d" % (a, b, c, n))
+        break
+    else:
+        print("%d" % (n))
 
-        n += 1
+    n += 1
 
 cnf_file.close()
 
-time_file = open(f"time_{result}_{a}.{b}.{c}.txt", "w")
+# end timer
+end_time = time.time()
+
+time_file = open(f"logs/generation_time/time_{result}_{a}.{b}.{c}.txt", "w")
 time_file.write("%.2f\n" % (end_time - start_time))
 time_file.close()
