@@ -13,7 +13,7 @@ To run the program, execute one of the following shell scripts depending on your
      ```
   2. Run the script:
      ```bash
-     ./incremental_driver.sh
+     ./incremental_driver.sh <result> <a> <b> <c>
      ```
 
 - **For non-incremental Rado number generation**, use the `nonincremental_driver.sh` script:
@@ -23,5 +23,5 @@ To run the program, execute one of the following shell scripts depending on your
      ```
   2. Run the script:
      ```bash
-     ./nonincremental_driver.sh
+     ./nonincremental_driver.sh <result> <a> <b> <c> <mode>
      ```
