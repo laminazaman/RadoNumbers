@@ -43,6 +43,7 @@ class ColorCaseProver:
 
     def set_substitution(self, subs):
         self.substitution = subs
+        self.divisibility.set_subs(subs)
 
     def set_statement(self, statement):
         self.statement = statement
@@ -72,11 +73,18 @@ class ColorCaseProver:
             lhs_intervals = [self.colouring[col][c[i]] for i in range(len(c))]
             earliest_interval = sorted(lhs_intervals)[0]
             z_intervals = [self.colouring[col][i] for i in range(len(self.colouring[col])) if self.colouring[col][i]>=earliest_interval]
-            case = [lhs_intervals, z_intervals]
+            case = [tuple(lhs_intervals), z_intervals]
             cases.append(case)
         return cases
 
-    def generate_cases(self):
+    def generate_cases(self, n):
+        
+        if self.covers_the_overall_interval(n) == False:
+            print("Partition does not seem to be correct!")
+            exit(0)
+        else:
+            print("Partition is correct!")
+            
         colours = list(self.colouring.keys())
         cases = {
             colours[i] : self.generate_colour_cases(colours[i]) for i in range(len(colours))
@@ -143,12 +151,44 @@ class ColorCaseProver:
 
                     solution_exists = solution_exists & (satisfies[0])
 
+                    if self.intervals[case2].constraint != None:    
+                        constraint = self.intervals[case2].constraint
+                        if constraint.to_be_satisfied == True:
+                            if not constraint.satisfied(z_min):
+                                text = f"not an element of the format {constraint.function}"
+                                argument = f"x_{len(lhs_intervals)+1} not in {case2}: {z_min} is {text}"
+                                subcase['a'].append(argument)
+                        else:
+                            if constraint.satisfied(z_min):
+                                text = f"an element of the format {constraint.function}"
+                                argument = f"x_{len(lhs_intervals)+1} not in {case2}: {z_min} is {text}"
+                                subcase['a'].append(argument)
+
+                    elif self.intervals[case2].constraints != None:
+                        constraints = self.intervals[case2].constraints
+                        satisfies_constraint = True
+                        if constraints != None:
+                            for c in range(len(constraints)):
+                                satisfies_constraint = satisfies_constraint and constraints[c].satisfied(z_min)
+                        if satisfies_constraint == False:
+                            text = f"does not satisfy constraints"
+                            argument = f"x_{len(lhs_intervals)+1} not in {case2}: {z_min} {text}"
+                            subcase['a'].append(argument)
+
+                    #solution_exists = solution_exists & (rhs_is_integer)
+
+                    z_is_integer = self.divisibility.is_integral(z_min)
+                    if z_is_integer == False:
+                        argument = f"z is not an integer"
+                        subcase['a'].append(argument)
+                    solution_exists = solution_exists & (z_is_integer)
+
                     rhs_is_integer = self.divisibility.rhs_is_integral(self.equation[-1], case2_divitems)
                     if rhs_is_integer == False:
                         argument = f"The RHS is not an integer"
                         subcase['a'].append(argument)
                     solution_exists = solution_exists & (rhs_is_integer)
-         
+
                     subcase[f'x_{len(lhs_intervals)+1}']['in'][case2] = solution_exists
                     if subcase[f'x_{len(lhs_intervals)+1}']['in'][case2] == True:
                         output_verified = False
@@ -158,6 +198,46 @@ class ColorCaseProver:
         print(f"{self.statement}\n")
         pprint.pprint(output)
         print(f"\nAll cases led to contradiction?: {output_verified}")
+    
+    def covers_the_overall_interval(self, n_exp):
+        n = n_exp.subs(self.substitution)
+        colours = list(self.colouring.keys())
+        colour_sets = dict()
+    
+        union_set = set()
+        counter = {i : 0 for i in range(1, n+1)}
+        contained = {i : [] for i in range(1, n+1)}
+        at_most_one_colour_per_integer = True
+
+        for i in range(len(colours)):
+            colour_sets[colours[i]] = set()
+            for j in range(len(self.colouring[i])):
+                interval = self.intervals[self.colouring[i][j]]
+                start = interval.get_min().subs(self.substitution)
+                end = interval.get_max().subs(self.substitution)
+                divitems = interval.get_divitems()
+                constraint = interval.constraint
+                constraints = interval.constraints
+    
+                for k in range(start, end+1):
+                    satisfies_divisibility, item_ = self.divisibility.satisfies(k, divitems)
+                    satisfies_constraint = True
+                    if constraint != None:
+                        satisfies_constraint = constraint.satisfied(k)                        
+                    elif constraints != None:
+                        for c in range(len(constraints)):
+                            satisfies_constraint = satisfies_constraint and constraints[c].satisfied(k)
+
+                    if satisfies_divisibility and satisfies_constraint:
+                        colour_sets[colours[i]].add(k)
+                        contained[k].append(colours[i])
+                        counter[k] += 1
+                        if counter[k] > 1:
+                            at_most_one_colour_per_integer = False
+                        union_set.add(k)
+                        
+        partition_verified = (n == len(union_set)) and at_most_one_colour_per_integer
+        return partition_verified
 
 
     

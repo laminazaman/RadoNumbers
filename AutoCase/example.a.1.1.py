@@ -19,6 +19,8 @@ P6 = sp.Interval(a**3 + 5*a**2 + 6*a + 1, a**3 + 5*a**2 + 7*a)
 
 substitution = {a: 1}
 
+n = a**3 + 5*a**2 + 7*a
+
 # Define the filtered sets as custom-defined intervals
 D1 = Interval([a], P0, DivItems([]), substitution)
 D2 = Interval([a], P2, DivItems([]), substitution)
@@ -49,5 +51,5 @@ ccp.add_intervals_to_colour(0, ["D1", "D2", "D3", "D4"])
 ccp.add_intervals_to_colour(1, ["R1", "R2"])
 ccp.add_intervals_to_colour(2, ["B1"])
 
-cases = ccp.generate_cases()
+cases = ccp.generate_cases(n)
 ccp.generate_proof(cases)

@@ -1,28 +1,19 @@
 from divitems import DivItems
 from divisibility import Divisibility
+from constraint import Constraint
 import sympy as sp
 
-class Constraint:
-    def __init__(self, function, ranges):
-        self.function = function
-        self.ranges = ranges
-    
-    def get(self):
-        return {
-            'function': self.function,
-            'ranges': self.ranges
-        }
-
 class Interval:
-    def __init__(self, symbols, interval, divitems, subs):
+    def __init__(self, symbols, interval, divitems, subs, constraint=None, constraints=None):
         self.interval = interval
         self.divitems = divitems
         self.symbols = symbols
         self.subs = subs
         self.min, self.max = self.get_min_max()
-        self.constraint = None
+        self.constraint = constraint
+        self.constraints = constraints
 
-    def add_constraint(self, function, ranges):
+    def set_constraint(self, function, ranges):
         self.constraint = Constraint(function, ranges)
 
     def get_interval(self):
@@ -35,6 +26,7 @@ class Interval:
         return {
             'interval': self.get_interval(),
             'divitems': self.get_divitems(),
+            'constraint': None if self.constraint == None else self.constraint.get(),
             'monotonic': 
                 self.is_lb_monotonic_increasing(self.symbols) 
                 and self.is_ub_monotonic_increasing(self.symbols),
@@ -130,6 +122,8 @@ class Interval:
 
         # Combine all conditions
         membership_condition = sp.And(in_range, *div_conditions, *nondiv_conditions)
+
+        constraint_satisfied = self.constraint.satisfied(z.subs(self.subs))        
 
         # Simplify the logical expression
         return sp.simplify(membership_condition)

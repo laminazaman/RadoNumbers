@@ -22,6 +22,11 @@ class Divisibility:
                         return True
             return False
 
+    def is_integral(self, exp, divitems=[]):
+        texp = sp.simplify(exp)
+        sexp = texp.subs(self.substitution)
+        return sexp.is_integer        
+
     def satisfies(self, exp, divitems=[]):
         for item in divitems:
             if item[1]==True:

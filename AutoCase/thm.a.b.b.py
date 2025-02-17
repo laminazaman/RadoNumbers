@@ -15,6 +15,8 @@ P2 = sp.Interval(b**2 * a + 1, b * a**2 + b * a)
 P3 = sp.Interval(b * a**2 + b * a + 1, a**3 + a**2 + (b + 1) * a)
 P4 = sp.Interval(a**3 + a**2 + (b + 1) * a + 1, a**3 + a**2 + (2 * b + 1) * a)
 
+n = a**3 + a**2 + (2 * b + 1) * a
+
 P0UP1 = sp.Interval(1, b**2 * a)
 P1UP2 = sp.Interval(b*a + 1, b * a**2 + b * a)
 
@@ -29,7 +31,7 @@ B1 = Interval([a,b], P0UP1, DivItems([(b, True), (b**2, False)]), substitution)
 B2 = Interval([a,b], P2, DivItems([(b, True)]), substitution)
 
 D1 = Interval([a,b], P1UP2, DivItems([(b, False)]), substitution)
-D2 = Interval([a,b], P3, DivItems([(b, True)]), substitution)
+D2 = Interval([a,b], P3, DivItems([]), substitution)
 
 ccp = ColorCaseProver()
 
@@ -50,5 +52,5 @@ ccp.add_intervals_to_colour(1, ["R1", "R2", "R3"])
 ccp.add_intervals_to_colour(2, ["B1", "B2"])
 
 
-cases = ccp.generate_cases()
+cases = ccp.generate_cases(n)
 ccp.generate_proof(cases)
