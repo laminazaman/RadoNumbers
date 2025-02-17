@@ -12,7 +12,8 @@ AutoCase consists of the following major components:
 2. **`interval.py`** - Handles symbolic interval definitions, constraints, and divisibility conditions.
 3. **`divisibility.py`** - Implements divisibility logic, ensuring valid number properties in intervals.
 4. **`divitems.py`** - Defines `DivItems`, a class to track required and forbidden divisibility constraints.
-5. **Example Files** (`example.a.1.1.py` and `example.a.1.1.proof.txt`) - Demonstrate how AutoCase applies its logic to specific cases.
+5. **`constraint.py`** - Defines `Constraint`, a class to define constraints on symbolic expressions to support filtered interval structures.
+6. **Example Files** (`example.a.1.1.py` and `example.a.1.1.proof.txt`) - Demonstrate how AutoCase applies its logic to specific cases.
 
 ---
 
@@ -101,7 +102,59 @@ Defines **divisibility rules** to check for:
 
 ---
 
-## **7. Example: Applying AutoCase**
+## **7. `constraint.py` - Constraint Definition and Filtering for Intervals**
+
+### **Overview**
+The `constraint.py` module implements the `Constraint` class, which defines numerical constraints on symbolic expressions and supports filtered interval structures used in combinatorial and number-theoretic problems.
+
+### **Key Features**
+- Defines constraints using polynomial functions and symbolic variables.
+- Computes valid numeric sets by substituting values into expressions.
+- Checks if expressions satisfy given constraints based on predefined numeric sets.
+- Supports multiple variable ranges and dynamically applies substitutions.
+- Enables the construction of filtered intervals using constraints.
+
+### **Class: `Constraint`**
+#### **Constructor**
+```python
+Constraint(function, ranges, to_be_satisfied, subs)
+```
+- `function`: A dictionary mapping monomials to their coefficients and values.
+- `ranges`: A dictionary specifying the variable bounds.
+- `to_be_satisfied`: Boolean indicating whether the constraint must be met.
+- `subs`: A dictionary of substitutions for symbolic evaluation.
+
+#### **Methods**
+- `get(self)`: Returns a dictionary representation of the constraint.
+- `get_items(self, exp)`: Extracts coefficient-multiplier pairs from an expression.
+- `get_matched_items(self, items)`: Matches extracted expression terms with function components.
+- `subs_range(self, var, subs)`: Computes variable bounds after applying substitutions.
+- `get_constraint_numeric_set(self)`: Generates the set of valid numerical values by evaluating functions over variable ranges.
+- `satisfied(self, exp)`: Checks whether an expression satisfies the constraint.
+
+---
+
+### **Usage Example**
+#### **Defining Filtered Intervals for `{A^r}_1(a)`**
+```python
+from constraint import Constraint
+import sympy as sp
+
+# Define filtered intervals for {A^r}_1(a)
+C_R1 = Constraint({'a**4': [1, a**4], 'a**2': [i, a**2]}, {i: [1, a-1]}, False, substitution)
+C_R2 = Constraint({'a**3': [i, a**3], 'a**2': [j, a**2]}, {i: [1, (a-1)//2], j: [0, i-1]}, False, substitution)
+C_R3 = Constraint({'a**3': [i, a**3], 'a**2': [j, a**2]}, {i: [(a+1)//2, a-1], j: [0, i]}, False, substitution)
+
+# Construct an interval using multiple constraints
+R_1 = Interval([a], A0, DivItems([(a**2, True)]), substitution, None, [C_R1, C_R2, C_R3])
+
+# Check if a given expression satisfies a constraint
+expr = sp.sympify('2 * a**3 + a**2')
+print(C_R1.satisfied(expr))  # Outputs True/False based on the constraint conditions
+```
+---
+
+## **8. Example: Applying AutoCase**
 ### **Running `example.a.1.1.py`**
 This script:
 1. *Defines symbolic intervals \( P_0, P_1, ..., P_6 \)*.
