@@ -28,7 +28,7 @@ ensure_directories() {
 run_rado_solver() {
 
     echo "Running..."
-    python code/rado_solver.py "$1" "$2" "$3"
+    python rado_solver.py "$1" "$2" "$3"
 
 }
 
