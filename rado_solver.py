@@ -21,11 +21,11 @@ s = ".".join(map(str, fixed))
 
 # filenames
 if n_fixed == 0:
-    log_name = f"log_{a}.{b}.{c}_{n_fixed}.txt"
-    sat_name = f"sat_{a}.{b}.{c}_{n_fixed}.txt"
+    log_name = f"cadical_log/log/log_{a}.{b}.{c}_{n_fixed}.txt"
+    sat_name = f"cadical_log/sat/sat_{a}.{b}.{c}_{n_fixed}.txt"
 else:
-    log_name = f"log_{a}.{b}.{c}_{n_fixed}_{s}.txt"
-    sat_name = f"sat_{a}.{b}.{c}_{n_fixed}_{s}.txt"
+    log_name = f"cadical_log/log/log_{a}.{b}.{c}_{n_fixed}_{s}.txt"
+    sat_name = f"cadical_log/sat/sat_{a}.{b}.{c}_{n_fixed}_{s}.txt"
 
 start_time = time.time()
 number_colouring = "None"
@@ -65,21 +65,27 @@ def negative_clause(col, x, y, z):
     clause = [-i for i in clause]
     return clause
 
-# one position can't be a specified colour
-def optional_clause(col, pos):
+# one position is assigned at most one colour
+def optional_clause(i, j, pos):
     clause = []
-    for i in range(1, k + 1):
-        if i != col:
-            clause.append(mapped_variable(i, pos))
+    clause.append(mapped_variable(i, pos))
+    clause.append(mapped_variable(j, pos))
     clause = [-i for i in clause]
     return clause
 
-# avoid different permutations of the same colouring
-def symmetry_breaking_clauses():
+# symmetry breaking clauses
+
+def integer_1_is_colour_1():
     clauses = []
     clauses.append([mapped_variable(1, 1)])
-    clauses.append([mapped_variable(1, 2), mapped_variable(2, 2)])
     return clauses
+
+def colour_3_cannot_appear_before_colours_1_2(n):
+    clause = []
+    for j in range(1, n):
+        clause.append(-mapped_variable(1, j))
+    clause.append(-mapped_variable(3, n))
+    return clause
 
 # extended Euclidean algorithm
 def eea(a, b):
@@ -164,18 +170,38 @@ def solve_equation(n):
             solutions.append((x, y, z))
 
     return solutions
+
+# check satisfying assignment for correctness
+def check(model):
+    n = len(model)
+    # an exhaustive search for monochromatic solutions of ax + by = cz
+    for i in range(1,n+1):
+        for j in range(1,n+1):
+            if model[i-1] == model[j-1]:
+                zc = a*i + b*j
+                yb = c*j - a*i
+                xa = c*j - b*i
+                if zc//c in range(1,n+1) and zc % c == 0 and model[zc//c-1] == model[i-1]:
+                    return f"Monochromatic Solution ({i}, {j}, {zc//c}) Found"
+                if yb//b in range(1,n+1) and yb % b == 0 and model[yb//b-1] == model[i-1]:
+                    return f"Monochromatic Solution ({i}, {yb//b}, {j}) Found"
+                if xa//a in range(1,n+1) and xa % a == 0 and model[xa//a-1] == model[i-1]:
+                    return f"Monochromatic Solution ({xa//a}, {i}, {j}) Found"
+    return ""
     
 # converts model to numbers (0, 1, 2)
 def toNumbers(model):
-    cols = ""
+    assert(len(model) % k == 0)
+    cols = ["?"] * (len(model)//k)
     for m in model:
         if m > 0:
-            cols += str(m % k)
-    return cols
+            assert(cols[(m-1)//k] == "?")
+            cols[(m-1)//k] = str((m-1) % k)
+    return "".join(cols)
 
 # converts model to exponents (form: k^{n})
 def toExponents(model):
-    model = [m % k for m in model if m > 0]
+    model = [(m-1) % k for m in model if m > 0]
     cols = []
     
     current = model[0]
@@ -215,9 +241,18 @@ if theorems():
 with Cadical153(use_timer = True) as s:
     
     # generate symmetry breaking clauses
-    sb_clauses = symmetry_breaking_clauses()
+    sb_clauses = integer_1_is_colour_1()
     for sb_clause in sb_clauses:
         s.add_clause(sb_clause)
+
+    if b == c:
+        nr1 = max(a + 1, b)
+    elif a == b and c == 1:
+        nr1 = 2*a
+    elif a == b:
+        nr1 = max(a, math.ceil(b / 2))
+    else:
+        nr1 = 30 
 
     # generate fixed colours for variable constraints
     for i in range(n_fixed):
@@ -227,6 +262,10 @@ with Cadical153(use_timer = True) as s:
 
         # generate positive clauses
         s.add_clause(positive_clause(n))
+
+        # generate symmetry breaking clauses
+        if n <= nr1:
+            s.add_clause(colour_3_cannot_appear_before_colours_1_2(n))
 
         # list of x, y, z values that satisfy ax + by = cz
         equation_solutions = solve_equation(n)
@@ -242,10 +281,12 @@ with Cadical153(use_timer = True) as s:
 
         # generate optional clauses
         for i in range(1, k + 1):
-            s.add_clause(optional_clause(i, n))
+            for j in range(i + 1, k + 1):
+                s.add_clause(optional_clause(i, j, n))
 
         # track results
         if n >= start:
+            t = time.time()
             result = s.solve()
             end_time = time.time()
 
@@ -256,7 +297,7 @@ with Cadical153(use_timer = True) as s:
 
                 number_colouring = toNumbers(s.get_model())
                 exponent_colouring = toExponents(s.get_model())
-
+                print("%d %.5f s %.5f s" % (n, end_time-t, end_time-start_time))
             else:
                 print("%d %d %d %d" % (a, b, c, n))
                 break
@@ -282,3 +323,9 @@ for i in range(n_fixed):
 f.write("U %d\n" % (n))
 f.write("T %.2f\n" % (end_time - start_time))
 f.close()
+
+# perform verification on last colouring found
+t = time.time()
+print("%d %s %s" % (n, number_colouring, check(number_colouring)))
+print("Check time: %.2f sec" % (time.time() - t))
+print("Solve time: %.2f sec" % (end_time - start_time))
