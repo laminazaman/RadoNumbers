@@ -40,8 +40,8 @@ ensure_directories() {
 run_generate_clauses() {
 
     echo "Generating CNF files..."
-    python code/generate_clauses.py $(( $1 - 1 )) "$2" "$3" "$4"
-    python code/generate_clauses.py "$1" "$2" "$3" "$4"
+    python generate_clauses.py $(( $1 - 1 )) "$2" "$3" "$4"
+    python generate_clauses.py "$1" "$2" "$3" "$4"
 
 }
 
