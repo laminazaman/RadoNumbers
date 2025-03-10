@@ -142,7 +142,7 @@ def diophantine_solutions(a, b, c):
 
 # return list of x, y, z values that satisfy ax + by = cz
 def solve_equation(n):
-    solutions = []
+    solutions = set()
     
     x = n
     sols = diophantine_solutions(-b, c, a*n)
@@ -150,7 +150,7 @@ def solve_equation(n):
         y = sol[0]
         z = sol[1]
         if a*x + b*y == c*z and 1 <= y and y <= n and 1 <= z and z <= n:
-            solutions.append((x, y, z))
+            solutions.add((x, y, z))
 
     if a != b:
         y = n
@@ -159,7 +159,7 @@ def solve_equation(n):
             x = sol[0]
             z = sol[1]
             if a*x + b*y == c*z and 1 <= x and x <= n and 1 <= z and z <= n:
-                solutions.append((x, y, z))
+                solutions.add((x, y, z))
 
     z = n
     sols = diophantine_solutions(a, b, c*n)
@@ -167,7 +167,7 @@ def solve_equation(n):
         x = sol[0]
         y = sol[1]
         if a*x + b*y == c*z and 1 <= x and x <= n and 1 <= y and y <= n:
-            solutions.append((x, y, z))
+            solutions.add((x, y, z))
 
     return solutions
 
@@ -271,11 +271,7 @@ with Cadical153(use_timer = True) as s:
         equation_solutions = solve_equation(n)
 
         # generate negative clauses
-        for i in range(len(equation_solutions)):
-            x = equation_solutions[i][0]
-            y = equation_solutions[i][1]
-            z = equation_solutions[i][2]
-
+        for (x, y, z) in equation_solutions:
             for j in range(1, k + 1):
                 s.add_clause(negative_clause(j, x, y, z))
 
