@@ -59,10 +59,9 @@ def optional_clause(i, j, pos):
 
 # symmetry breaking clauses
 
-def colour_c_cannot_appear_before_integer_cplus1():
+def integer_1_is_colour_1():
     clauses = []
     clauses.append([mapped_variable(1, 1)])
-    clauses.append([mapped_variable(1, 2), mapped_variable(2, 2)])
     return clauses
 
 def colour_3_cannot_appear_before_colours_1_2(n):
@@ -127,7 +126,7 @@ def diophantine_solutions(a, b, c):
 
 # return list of x, y, z values that satisfy ax + by = cz
 def solve_equation(n):
-    solutions = []
+    solutions = set()
     
     x = n
     sols = diophantine_solutions(-b, c, a*n)
@@ -135,7 +134,7 @@ def solve_equation(n):
         y = sol[0]
         z = sol[1]
         if a*x + b*y == c*z and 1 <= y and y <= n and 1 <= z and z <= n:
-            solutions.append((x, y, z))
+            solutions.add((x, y, z))
 
     if a != b:
         y = n
@@ -144,7 +143,7 @@ def solve_equation(n):
             x = sol[0]
             z = sol[1]
             if a*x + b*y == c*z and 1 <= x and x <= n and 1 <= z and z <= n:
-                solutions.append((x, y, z))
+                solutions.add((x, y, z))
 
     z = n
     sols = diophantine_solutions(a, b, c*n)
@@ -152,7 +151,7 @@ def solve_equation(n):
         x = sol[0]
         y = sol[1]
         if a*x + b*y == c*z and 1 <= x and x <= n and 1 <= y and y <= n:
-            solutions.append((x, y, z))
+            solutions.add((x, y, z))
 
     return solutions
 
@@ -161,11 +160,18 @@ def write_clause(clause, file):
 
 cnf_file = open(f"logs/cnf_files/clauses_{result}_{a}.{b}.{c}.cnf", "w")
 
+if result == 0:
+    cnf_file.write("p cnf 0 0\n")
+    cnf_file.close()
+    exit()
+
 # count clauses
 while n <= result:
 
-    clause_count += (k * (k - 1) // 2 + 1)
+    clause_count += 1 # positive clauses
+    clause_count += (k * (k - 1) // 2) # optional clauses
 
+    # negative clauses
     equation_solutions = solve_equation(n)
     for i in range(len(equation_solutions)):
         clause_count += k
@@ -176,7 +182,7 @@ while n <= result:
 start_time = time.time()
 
 # generate symmetry breaking clauses
-sb_clauses = colour_c_cannot_appear_before_integer_cplus1()
+sb_clauses = integer_1_is_colour_1()
 
 n = 1
 while solve_equation(n) == [] and n < result:
@@ -201,11 +207,7 @@ while True:
     equation_solutions = solve_equation(n)
 
     # generate negative clauses
-    for i in range(len(equation_solutions)):
-        x = equation_solutions[i][0]
-        y = equation_solutions[i][1]
-        z = equation_solutions[i][2]
-
+    for (x, y, z) in equation_solutions:
         for j in range(1, k + 1):
             write_clause(negative_clause(j, x, y, z), cnf_file)
 
