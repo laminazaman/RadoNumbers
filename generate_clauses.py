@@ -134,7 +134,10 @@ def solve_equation(n):
         y = sol[0]
         z = sol[1]
         if a*x + b*y == c*z and 1 <= y and y <= n and 1 <= z and z <= n:
-            solutions.add((x, y, z))
+            if y < z:
+                solutions.add((y, z, n))
+            else:
+                solutions.add((z, y, n))
 
     if a != b:
         y = n
@@ -143,7 +146,10 @@ def solve_equation(n):
             x = sol[0]
             z = sol[1]
             if a*x + b*y == c*z and 1 <= x and x <= n and 1 <= z and z <= n:
-                solutions.add((x, y, z))
+                if x < z:
+                    solutions.add((x, z, n))
+                else:
+                    solutions.add((z, x, n))
 
     z = n
     sols = diophantine_solutions(a, b, c*n)
@@ -151,7 +157,10 @@ def solve_equation(n):
         x = sol[0]
         y = sol[1]
         if a*x + b*y == c*z and 1 <= x and x <= n and 1 <= y and y <= n:
-            solutions.add((x, y, z))
+            if x < y:
+                solutions.add((x, y, n))
+            else:
+                solutions.add((y, x, n))
 
     return solutions
 
