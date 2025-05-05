@@ -48,7 +48,7 @@ B1.add_must_not_divide(b**2)
 prover.add_interval("B1", B1)
 
 B2 = FilteredInterval([a, b], assumptions)
-B2.set_bounds(b**2 * a + 1, b * a**2 + b * a)
+B2.set_bounds(b**2 * a + b, b * a**2 + b * a)
 B2.add_must_divide(b)
 prover.add_interval("B2", B2)
 

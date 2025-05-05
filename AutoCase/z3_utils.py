@@ -94,12 +94,14 @@ class IntegralityLemmaChecker_a_a_ap1:
 
     def parse_expr(self, expr_string):
         if isinstance(expr_string, str):
+            expr_string = expr_string.replace("/", "//")  # Force integer division
             return eval(expr_string, {}, self.z3_vars)
         elif isinstance(expr_string, z3.ExprRef):
             return expr_string
         elif isinstance(expr_string, int):
             return z3.IntVal(expr_string)
         raise ValueError(f"Unsupported expression: {expr_string}")
+
 
     def safe_div_constraint(self, tag, d_expr, x_str):
         x = self.z3_vars[x_str]
@@ -113,7 +115,8 @@ class IntegralityLemmaChecker_a_a_ap1:
             raise ValueError(f"Unsupported tag: {tag}")
 
     def prove_no_integer_solution(self, div_tags):
-        N = self.parse_expr(self.upper_bound_expr)
+        a = z3.Int('a')
+        N = z3.ToInt(a**3) * (a + 1) 
         constraints = []
 
         quantified_vars = list(self.z3_vars.values())

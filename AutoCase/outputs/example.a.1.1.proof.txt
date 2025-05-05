@@ -119,7 +119,9 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_2,
  x_2 <= a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + a,
+ x_3 <= 0 + a + ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
 Case time: 0.04; Elapsed time: 0.04; Current counts: {'SAT': 0, 'UNSAT': 1, 'UNKNOWN': 0}
@@ -134,11 +136,13 @@ INPUT CONSTRAINTS in Z3:
  x_1 <= a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + a,
+ x_3 <= 0 + a + ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.03; Elapsed time: 0.08; Current counts: {'SAT': 0, 'UNSAT': 2, 'UNKNOWN': 0}
+Case time: 0.04; Elapsed time: 0.08; Current counts: {'SAT': 0, 'UNSAT': 2, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 1.3 — Intervals for LHS variables: ('D1', 'D1'), RHS candidate: D3
@@ -150,12 +154,13 @@ INPUT CONSTRAINTS in Z3:
  x_1 <= a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + a,
+ x_3 <= 0 + a + ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.06; Elapsed time: 0.14; Current counts: {'SAT': 0, 'UNSAT': 3, 'UNKNOWN': 0}
+Case time: 0.05; Elapsed time: 0.14; Current counts: {'SAT': 0, 'UNSAT': 3, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 1.4 — Intervals for LHS variables: ('D1', 'D1'), RHS candidate: D4
@@ -167,9 +172,10 @@ INPUT CONSTRAINTS in Z3:
  x_1 <= a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + a,
+ x_3 <= 0 + a + ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
 Case time: 0.06; Elapsed time: 0.20; Current counts: {'SAT': 0, 'UNSAT': 4, 'UNKNOWN': 0}
@@ -184,13 +190,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 3*a,
+ x_3 <= 0 + 2*ToInt(a**2) + 3*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.05; Elapsed time: 0.25; Current counts: {'SAT': 0, 'UNSAT': 5, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 0.28; Current counts: {'SAT': 0, 'UNSAT': 5, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 2.2 — Intervals for LHS variables: ('D1', 'D2'), RHS candidate: D2
@@ -200,13 +208,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 3*a,
+ x_3 <= 0 + 2*ToInt(a**2) + 3*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.04; Elapsed time: 0.29; Current counts: {'SAT': 0, 'UNSAT': 6, 'UNKNOWN': 0}
+Case time: 0.05; Elapsed time: 0.33; Current counts: {'SAT': 0, 'UNSAT': 6, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 2.3 — Intervals for LHS variables: ('D1', 'D2'), RHS candidate: D3
@@ -216,14 +226,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 3*a,
+ x_3 <= 0 + 2*ToInt(a**2) + 3*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.04; Elapsed time: 0.34; Current counts: {'SAT': 0, 'UNSAT': 7, 'UNKNOWN': 0}
+Case time: 0.05; Elapsed time: 0.38; Current counts: {'SAT': 0, 'UNSAT': 7, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 2.4 — Intervals for LHS variables: ('D1', 'D2'), RHS candidate: D4
@@ -233,14 +244,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 3*a,
+ x_3 <= 0 + 2*ToInt(a**2) + 3*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.05; Elapsed time: 0.38; Current counts: {'SAT': 0, 'UNSAT': 8, 'UNKNOWN': 0}
+Case time: 0.06; Elapsed time: 0.44; Current counts: {'SAT': 0, 'UNSAT': 8, 'UNKNOWN': 0}
 ############################################################################
 
 Case 3 — Intervals for LHS variables: ('D1', 'D3'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -252,14 +264,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*a + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.07; Elapsed time: 0.46; Current counts: {'SAT': 0, 'UNSAT': 9, 'UNKNOWN': 0}
+Case time: 0.11; Elapsed time: 0.54; Current counts: {'SAT': 0, 'UNSAT': 9, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 3.2 — Intervals for LHS variables: ('D1', 'D3'), RHS candidate: D2
@@ -269,14 +282,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*a + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.04; Elapsed time: 0.50; Current counts: {'SAT': 0, 'UNSAT': 10, 'UNKNOWN': 0}
+Case time: 0.06; Elapsed time: 0.61; Current counts: {'SAT': 0, 'UNSAT': 10, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 3.3 — Intervals for LHS variables: ('D1', 'D3'), RHS candidate: D3
@@ -286,15 +300,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*a + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.05; Elapsed time: 0.55; Current counts: {'SAT': 0, 'UNSAT': 11, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 0.67; Current counts: {'SAT': 0, 'UNSAT': 11, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 3.4 — Intervals for LHS variables: ('D1', 'D3'), RHS candidate: D4
@@ -304,15 +318,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*a + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.05; Elapsed time: 0.61; Current counts: {'SAT': 0, 'UNSAT': 12, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 0.74; Current counts: {'SAT': 0, 'UNSAT': 12, 'UNKNOWN': 0}
 ############################################################################
 
 Case 4 — Intervals for LHS variables: ('D1', 'D4'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -324,14 +338,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 <= 0 + ToInt(a**3) + 6*ToInt(a**2) + 7*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.07; Elapsed time: 0.68; Current counts: {'SAT': 0, 'UNSAT': 13, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 0.84; Current counts: {'SAT': 0, 'UNSAT': 13, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 4.2 — Intervals for LHS variables: ('D1', 'D4'), RHS candidate: D2
@@ -341,14 +356,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 <= 0 + ToInt(a**3) + 6*ToInt(a**2) + 7*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.05; Elapsed time: 0.72; Current counts: {'SAT': 0, 'UNSAT': 14, 'UNKNOWN': 0}
+Case time: 0.06; Elapsed time: 0.90; Current counts: {'SAT': 0, 'UNSAT': 14, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 4.3 — Intervals for LHS variables: ('D1', 'D4'), RHS candidate: D3
@@ -358,15 +374,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 <= 0 + ToInt(a**3) + 6*ToInt(a**2) + 7*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.05; Elapsed time: 0.78; Current counts: {'SAT': 0, 'UNSAT': 15, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 0.97; Current counts: {'SAT': 0, 'UNSAT': 15, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 4.4 — Intervals for LHS variables: ('D1', 'D4'), RHS candidate: D4
@@ -376,15 +392,15 @@ INPUT CONSTRAINTS in Z3:
  2 <= a,
  1 <= x_1,
  x_1 <= a,
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 <= 0 + ToInt(a**3) + 6*ToInt(a**2) + 7*a]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.05; Elapsed time: 0.83; Current counts: {'SAT': 0, 'UNSAT': 16, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 1.05; Current counts: {'SAT': 0, 'UNSAT': 16, 'UNKNOWN': 0}
 ############################################################################
 
 Case 5 — Intervals for LHS variables: ('D2', 'D1'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -394,15 +410,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_2,
  x_2 <= a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + a + ToInt(a**3) + 2*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**3) + 3*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.06; Elapsed time: 0.89; Current counts: {'SAT': 0, 'UNSAT': 17, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 1.14; Current counts: {'SAT': 0, 'UNSAT': 17, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 5.2 — Intervals for LHS variables: ('D2', 'D1'), RHS candidate: D2
@@ -410,15 +428,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + a + ToInt(a**3) + 2*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**3) + 3*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.04; Elapsed time: 0.93; Current counts: {'SAT': 0, 'UNSAT': 18, 'UNKNOWN': 0}
+Case time: 0.06; Elapsed time: 1.20; Current counts: {'SAT': 0, 'UNSAT': 18, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 5.3 — Intervals for LHS variables: ('D2', 'D1'), RHS candidate: D3
@@ -426,16 +446,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + a + ToInt(a**3) + 2*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**3) + 3*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.04; Elapsed time: 0.97; Current counts: {'SAT': 0, 'UNSAT': 19, 'UNKNOWN': 0}
+Case time: 0.06; Elapsed time: 1.26; Current counts: {'SAT': 0, 'UNSAT': 19, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 5.4 — Intervals for LHS variables: ('D2', 'D1'), RHS candidate: D4
@@ -443,16 +464,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + a + ToInt(a**3) + 2*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**3) + 3*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.05; Elapsed time: 1.02; Current counts: {'SAT': 0, 'UNSAT': 20, 'UNKNOWN': 0}
+Case time: 0.06; Elapsed time: 1.32; Current counts: {'SAT': 0, 'UNSAT': 20, 'UNKNOWN': 0}
 ############################################################################
 
 Case 6 — Intervals for LHS variables: ('D2', 'D2'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -462,15 +484,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 3*a + 3*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 3*a + 4*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.08; Elapsed time: 1.10; Current counts: {'SAT': 0, 'UNSAT': 21, 'UNKNOWN': 0}
+Case time: 0.11; Elapsed time: 1.42; Current counts: {'SAT': 0, 'UNSAT': 21, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 6.2 — Intervals for LHS variables: ('D2', 'D2'), RHS candidate: D2
@@ -478,15 +502,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 3*a + 3*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 3*a + 4*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.04; Elapsed time: 1.14; Current counts: {'SAT': 0, 'UNSAT': 22, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 1.49; Current counts: {'SAT': 0, 'UNSAT': 22, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 6.3 — Intervals for LHS variables: ('D2', 'D2'), RHS candidate: D3
@@ -494,16 +520,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 3*a + 3*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 3*a + 4*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.05; Elapsed time: 1.19; Current counts: {'SAT': 0, 'UNSAT': 23, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 1.57; Current counts: {'SAT': 0, 'UNSAT': 23, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 6.4 — Intervals for LHS variables: ('D2', 'D2'), RHS candidate: D4
@@ -511,16 +538,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 3*a + 3*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 3*a + 4*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.05; Elapsed time: 1.24; Current counts: {'SAT': 0, 'UNSAT': 24, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 1.66; Current counts: {'SAT': 0, 'UNSAT': 24, 'UNKNOWN': 0}
 ############################################################################
 
 Case 7 — Intervals for LHS variables: ('D2', 'D3'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -530,16 +558,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 5*a + 6*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 5*a + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.10; Elapsed time: 1.34; Current counts: {'SAT': 0, 'UNSAT': 25, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 1.79; Current counts: {'SAT': 0, 'UNSAT': 25, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 7.2 — Intervals for LHS variables: ('D2', 'D3'), RHS candidate: D2
@@ -547,16 +576,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 5*a + 6*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 5*a + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 1.40; Current counts: {'SAT': 0, 'UNSAT': 26, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 1.86; Current counts: {'SAT': 0, 'UNSAT': 26, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 7.3 — Intervals for LHS variables: ('D2', 'D3'), RHS candidate: D3
@@ -564,17 +594,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 5*a + 6*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 5*a + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.06; Elapsed time: 1.46; Current counts: {'SAT': 0, 'UNSAT': 27, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 1.95; Current counts: {'SAT': 0, 'UNSAT': 27, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 7.4 — Intervals for LHS variables: ('D2', 'D3'), RHS candidate: D4
@@ -582,17 +612,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 5*a + 6*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 5*a + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.06; Elapsed time: 1.52; Current counts: {'SAT': 0, 'UNSAT': 28, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 2.03; Current counts: {'SAT': 0, 'UNSAT': 28, 'UNKNOWN': 0}
 ############################################################################
 
 Case 8 — Intervals for LHS variables: ('D2', 'D4'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -602,16 +632,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 7*a + 7*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 7*a + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.09; Elapsed time: 1.61; Current counts: {'SAT': 0, 'UNSAT': 29, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 2.15; Current counts: {'SAT': 0, 'UNSAT': 29, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 8.2 — Intervals for LHS variables: ('D2', 'D4'), RHS candidate: D2
@@ -619,16 +650,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 7*a + 7*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 7*a + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.05; Elapsed time: 1.66; Current counts: {'SAT': 0, 'UNSAT': 30, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 2.23; Current counts: {'SAT': 0, 'UNSAT': 30, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 8.3 — Intervals for LHS variables: ('D2', 'D4'), RHS candidate: D3
@@ -636,17 +668,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 7*a + 7*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 7*a + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.06; Elapsed time: 1.72; Current counts: {'SAT': 0, 'UNSAT': 31, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 2.31; Current counts: {'SAT': 0, 'UNSAT': 31, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 8.4 — Intervals for LHS variables: ('D2', 'D4'), RHS candidate: D4
@@ -654,17 +686,17 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_1) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_1 <= 0 + ToInt(a**2) + 3*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + 2*ToInt(a**3) + 7*a + 7*ToInt(a**2),
+ x_3 <= 0 + 2*ToInt(a**3) + 7*a + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.07; Elapsed time: 1.79; Current counts: {'SAT': 0, 'UNSAT': 32, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 2.39; Current counts: {'SAT': 0, 'UNSAT': 32, 'UNKNOWN': 0}
 ############################################################################
 
 Case 9 — Intervals for LHS variables: ('D3', 'D1'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -674,16 +706,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_2,
  x_2 <= a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 4*ToInt(a**2) + 4*ToInt(a**3),
+ x_3 <= 0 + a + ToInt(a**4) + 4*ToInt(a**3) + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.13; Elapsed time: 1.92; Current counts: {'SAT': 0, 'UNSAT': 33, 'UNKNOWN': 0}
+Case time: 0.15; Elapsed time: 2.54; Current counts: {'SAT': 0, 'UNSAT': 33, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 9.2 — Intervals for LHS variables: ('D3', 'D1'), RHS candidate: D2
@@ -691,16 +725,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 4*ToInt(a**2) + 4*ToInt(a**3),
+ x_3 <= 0 + a + ToInt(a**4) + 4*ToInt(a**3) + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.05; Elapsed time: 1.97; Current counts: {'SAT': 0, 'UNSAT': 34, 'UNKNOWN': 0}
+Case time: 0.12; Elapsed time: 2.66; Current counts: {'SAT': 0, 'UNSAT': 34, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 9.3 — Intervals for LHS variables: ('D3', 'D1'), RHS candidate: D3
@@ -708,17 +744,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 4*ToInt(a**2) + 4*ToInt(a**3),
+ x_3 <= 0 + a + ToInt(a**4) + 4*ToInt(a**3) + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.06; Elapsed time: 2.03; Current counts: {'SAT': 0, 'UNSAT': 35, 'UNKNOWN': 0}
+Case time: 0.11; Elapsed time: 2.77; Current counts: {'SAT': 0, 'UNSAT': 35, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 9.4 — Intervals for LHS variables: ('D3', 'D1'), RHS candidate: D4
@@ -726,17 +763,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 4*ToInt(a**2) + 4*ToInt(a**3),
+ x_3 <= 0 + a + ToInt(a**4) + 4*ToInt(a**3) + 5*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.06; Elapsed time: 2.09; Current counts: {'SAT': 0, 'UNSAT': 36, 'UNKNOWN': 0}
+Case time: 0.12; Elapsed time: 2.89; Current counts: {'SAT': 0, 'UNSAT': 36, 'UNKNOWN': 0}
 ############################################################################
 
 Case 10 — Intervals for LHS variables: ('D3', 'D2'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -746,16 +784,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 5*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 6*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.12; Elapsed time: 2.21; Current counts: {'SAT': 0, 'UNSAT': 37, 'UNKNOWN': 0}
+Case time: 0.16; Elapsed time: 3.05; Current counts: {'SAT': 0, 'UNSAT': 37, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 10.2 — Intervals for LHS variables: ('D3', 'D2'), RHS candidate: D2
@@ -763,16 +803,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 5*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 6*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 2.27; Current counts: {'SAT': 0, 'UNSAT': 38, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 3.13; Current counts: {'SAT': 0, 'UNSAT': 38, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 10.3 — Intervals for LHS variables: ('D3', 'D2'), RHS candidate: D3
@@ -780,17 +822,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 5*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 6*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.07; Elapsed time: 2.34; Current counts: {'SAT': 0, 'UNSAT': 39, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 3.23; Current counts: {'SAT': 0, 'UNSAT': 39, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 10.4 — Intervals for LHS variables: ('D3', 'D2'), RHS candidate: D4
@@ -798,17 +841,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 5*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 4*ToInt(a**3) + 6*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.06; Elapsed time: 2.40; Current counts: {'SAT': 0, 'UNSAT': 40, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 3.35; Current counts: {'SAT': 0, 'UNSAT': 40, 'UNKNOWN': 0}
 ############################################################################
 
 Case 11 — Intervals for LHS variables: ('D3', 'D3'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -818,17 +862,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 8*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 9*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.13; Elapsed time: 2.53; Current counts: {'SAT': 0, 'UNSAT': 41, 'UNKNOWN': 0}
+Case time: 0.16; Elapsed time: 3.51; Current counts: {'SAT': 0, 'UNSAT': 41, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 11.2 — Intervals for LHS variables: ('D3', 'D3'), RHS candidate: D2
@@ -836,17 +881,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 8*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 9*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 2.60; Current counts: {'SAT': 0, 'UNSAT': 42, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 3.60; Current counts: {'SAT': 0, 'UNSAT': 42, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 11.3 — Intervals for LHS variables: ('D3', 'D3'), RHS candidate: D3
@@ -854,18 +900,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 8*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 9*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.07; Elapsed time: 2.67; Current counts: {'SAT': 0, 'UNSAT': 43, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 3.70; Current counts: {'SAT': 0, 'UNSAT': 43, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 11.4 — Intervals for LHS variables: ('D3', 'D3'), RHS candidate: D4
@@ -873,18 +919,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 8*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 5*a + 5*ToInt(a**3) + 9*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.07; Elapsed time: 2.74; Current counts: {'SAT': 0, 'UNSAT': 44, 'UNKNOWN': 0}
+Case time: 0.12; Elapsed time: 3.82; Current counts: {'SAT': 0, 'UNSAT': 44, 'UNKNOWN': 0}
 ############################################################################
 
 Case 12 — Intervals for LHS variables: ('D3', 'D4'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -894,17 +940,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 9*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 10*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.12; Elapsed time: 2.86; Current counts: {'SAT': 0, 'UNSAT': 45, 'UNKNOWN': 0}
+Case time: 0.16; Elapsed time: 3.98; Current counts: {'SAT': 0, 'UNSAT': 45, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 12.2 — Intervals for LHS variables: ('D3', 'D4'), RHS candidate: D2
@@ -912,17 +960,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 9*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 10*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 2.93; Current counts: {'SAT': 0, 'UNSAT': 46, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 4.07; Current counts: {'SAT': 0, 'UNSAT': 46, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 12.3 — Intervals for LHS variables: ('D3', 'D4'), RHS candidate: D3
@@ -930,18 +980,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 9*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 10*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.07; Elapsed time: 3.00; Current counts: {'SAT': 0, 'UNSAT': 47, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 4.17; Current counts: {'SAT': 0, 'UNSAT': 47, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 12.4 — Intervals for LHS variables: ('D3', 'D4'), RHS candidate: D4
@@ -949,18 +1000,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_1) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_1 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 9*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*ToInt(a**3) + 7*a + 10*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.07; Elapsed time: 3.06; Current counts: {'SAT': 0, 'UNSAT': 48, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 4.26; Current counts: {'SAT': 0, 'UNSAT': 48, 'UNKNOWN': 0}
 ############################################################################
 
 Case 13 — Intervals for LHS variables: ('D4', 'D1'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -970,16 +1022,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_2,
  x_2 <= a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 5*ToInt(a**3) + 6*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**4) + 5*ToInt(a**3) + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.11; Elapsed time: 3.17; Current counts: {'SAT': 0, 'UNSAT': 49, 'UNKNOWN': 0}
+Case time: 0.16; Elapsed time: 4.42; Current counts: {'SAT': 0, 'UNSAT': 49, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 13.2 — Intervals for LHS variables: ('D4', 'D1'), RHS candidate: D2
@@ -987,16 +1041,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 5*ToInt(a**3) + 6*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**4) + 5*ToInt(a**3) + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.05; Elapsed time: 3.22; Current counts: {'SAT': 0, 'UNSAT': 50, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 4.51; Current counts: {'SAT': 0, 'UNSAT': 50, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 13.3 — Intervals for LHS variables: ('D4', 'D1'), RHS candidate: D3
@@ -1004,17 +1060,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 5*ToInt(a**3) + 6*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**4) + 5*ToInt(a**3) + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.06; Elapsed time: 3.27; Current counts: {'SAT': 0, 'UNSAT': 51, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 4.60; Current counts: {'SAT': 0, 'UNSAT': 51, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 13.4 — Intervals for LHS variables: ('D4', 'D1'), RHS candidate: D4
@@ -1022,17 +1079,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_2,
  x_2 <= a,
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + a + ToInt(a**4) + 5*ToInt(a**3) + 6*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**4) + 5*ToInt(a**3) + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.05; Elapsed time: 3.33; Current counts: {'SAT': 0, 'UNSAT': 52, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 4.73; Current counts: {'SAT': 0, 'UNSAT': 52, 'UNKNOWN': 0}
 ############################################################################
 
 Case 14 — Intervals for LHS variables: ('D4', 'D2'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -1042,16 +1100,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 7*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.13; Elapsed time: 3.46; Current counts: {'SAT': 0, 'UNSAT': 53, 'UNKNOWN': 0}
+Case time: 0.15; Elapsed time: 4.88; Current counts: {'SAT': 0, 'UNSAT': 53, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 14.2 — Intervals for LHS variables: ('D4', 'D2'), RHS candidate: D2
@@ -1059,16 +1119,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 7*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 3.52; Current counts: {'SAT': 0, 'UNSAT': 54, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 4.95; Current counts: {'SAT': 0, 'UNSAT': 54, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 14.3 — Intervals for LHS variables: ('D4', 'D2'), RHS candidate: D3
@@ -1076,17 +1138,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 7*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.06; Elapsed time: 3.58; Current counts: {'SAT': 0, 'UNSAT': 55, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 5.05; Current counts: {'SAT': 0, 'UNSAT': 55, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 14.4 — Intervals for LHS variables: ('D4', 'D2'), RHS candidate: D4
@@ -1094,17 +1157,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_2) <= 0 + a**2 + ToReal(3*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_2 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 7*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 3*a + 5*ToInt(a**3) + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.06; Elapsed time: 3.64; Current counts: {'SAT': 0, 'UNSAT': 56, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 5.15; Current counts: {'SAT': 0, 'UNSAT': 56, 'UNKNOWN': 0}
 ############################################################################
 
 Case 15 — Intervals for LHS variables: ('D4', 'D3'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -1114,17 +1178,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 10*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 11*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.13; Elapsed time: 3.77; Current counts: {'SAT': 0, 'UNSAT': 57, 'UNKNOWN': 0}
+Case time: 0.17; Elapsed time: 5.32; Current counts: {'SAT': 0, 'UNSAT': 57, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 15.2 — Intervals for LHS variables: ('D4', 'D3'), RHS candidate: D2
@@ -1132,17 +1198,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 10*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 11*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 3.83; Current counts: {'SAT': 0, 'UNSAT': 58, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 5.40; Current counts: {'SAT': 0, 'UNSAT': 58, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 15.3 — Intervals for LHS variables: ('D4', 'D3'), RHS candidate: D3
@@ -1150,18 +1218,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 10*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 11*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.07; Elapsed time: 3.89; Current counts: {'SAT': 0, 'UNSAT': 59, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 5.50; Current counts: {'SAT': 0, 'UNSAT': 59, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 15.4 — Intervals for LHS variables: ('D4', 'D3'), RHS candidate: D4
@@ -1169,18 +1238,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 10*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 5*a + 6*ToInt(a**3) + 11*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.07; Elapsed time: 3.97; Current counts: {'SAT': 0, 'UNSAT': 60, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 5.60; Current counts: {'SAT': 0, 'UNSAT': 60, 'UNKNOWN': 0}
 ############################################################################
 
 Case 16 — Intervals for LHS variables: ('D4', 'D4'), RHS interval candidates: ['D1', 'D2', 'D3', 'D4']
@@ -1190,17 +1260,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
  1 <= x_3,
- x_3 <= a]
+ x_3 <= a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 11*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 12*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.10; Elapsed time: 4.07; Current counts: {'SAT': 0, 'UNSAT': 61, 'UNKNOWN': 0}
+Case time: 0.19; Elapsed time: 5.79; Current counts: {'SAT': 0, 'UNSAT': 61, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 16.2 — Intervals for LHS variables: ('D4', 'D4'), RHS candidate: D2
@@ -1208,17 +1280,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(2*a),
- ToReal(x_3) <= 0 + a**2 + ToReal(3*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**2) + 3*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 11*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 12*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 4.13; Current counts: {'SAT': 0, 'UNSAT': 62, 'UNKNOWN': 0}
+Case time: 0.11; Elapsed time: 5.90; Current counts: {'SAT': 0, 'UNSAT': 62, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 16.3 — Intervals for LHS variables: ('D4', 'D4'), RHS candidate: D3
@@ -1226,18 +1300,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) <= 0 + a**3 + ToReal(4)*a**2 + ToReal(5*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 11*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 12*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D3
-Case time: 0.07; Elapsed time: 4.20; Current counts: {'SAT': 0, 'UNSAT': 63, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 6.00; Current counts: {'SAT': 0, 'UNSAT': 63, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 16.4 — Intervals for LHS variables: ('D4', 'D4'), RHS candidate: D4
@@ -1245,18 +1320,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(7*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 7*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 11*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 6*ToInt(a**3) + 7*a + 12*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D4
-Case time: 0.07; Elapsed time: 4.26; Current counts: {'SAT': 0, 'UNSAT': 64, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 6.10; Current counts: {'SAT': 0, 'UNSAT': 64, 'UNKNOWN': 0}
 ############################################################################
 
 Case 17 — Intervals for LHS variables: ('R1', 'R1'), RHS interval candidates: ['R1', 'R2']
@@ -1267,14 +1343,16 @@ INPUT CONSTRAINTS in Z3:
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
  x_1 >= 0 + 1 + a,
- ToReal(x_1) <= 0 + a**2 + ToReal(2*a),
+ x_1 <= 0 + ToInt(a**2) + 2*a,
  x_2 >= 0 + 1 + a,
- ToReal(x_2) <= 0 + a**2 + ToReal(2*a),
+ x_2 <= 0 + ToInt(a**2) + 2*a,
  x_3 >= 0 + 1 + a,
- ToReal(x_3) <= 0 + a**2 + ToReal(2*a)]
+ x_3 <= 0 + ToInt(a**2) + 2*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**3) + 2*a + 3*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.07; Elapsed time: 4.34; Current counts: {'SAT': 0, 'UNSAT': 65, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 6.19; Current counts: {'SAT': 0, 'UNSAT': 65, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 17.2 — Intervals for LHS variables: ('R1', 'R1'), RHS candidate: R2
@@ -1283,15 +1361,16 @@ INPUT CONSTRAINTS in Z3:
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
  x_1 >= 0 + 1 + a,
- ToReal(x_1) <= 0 + a**2 + ToReal(2*a),
+ x_1 <= 0 + ToInt(a**2) + 2*a,
  x_2 >= 0 + 1 + a,
- ToReal(x_2) <= 0 + a**2 + ToReal(2*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a)]
+ x_2 <= 0 + ToInt(a**2) + 2*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 >= 0 + 1 + ToInt(a**2) + 2*a,
+ x_3 <= 0 + ToInt(a**3) + 2*a + 3*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.05; Elapsed time: 4.39; Current counts: {'SAT': 0, 'UNSAT': 66, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 6.25; Current counts: {'SAT': 0, 'UNSAT': 66, 'UNKNOWN': 0}
 ############################################################################
 
 Case 18 — Intervals for LHS variables: ('R1', 'R2'), RHS interval candidates: ['R1', 'R2']
@@ -1302,15 +1381,16 @@ INPUT CONSTRAINTS in Z3:
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
  x_1 >= 0 + 1 + a,
- ToReal(x_1) <= 0 + a**2 + ToReal(2*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
+ x_1 <= 0 + ToInt(a**2) + 2*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
  x_3 >= 0 + 1 + a,
- ToReal(x_3) <= 0 + a**2 + ToReal(2*a)]
+ x_3 <= 0 + ToInt(a**2) + 2*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + 2*ToInt(a**3) + 6*a + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.09; Elapsed time: 4.48; Current counts: {'SAT': 0, 'UNSAT': 67, 'UNKNOWN': 0}
+Case time: 0.11; Elapsed time: 6.36; Current counts: {'SAT': 0, 'UNSAT': 67, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 18.2 — Intervals for LHS variables: ('R1', 'R2'), RHS candidate: R2
@@ -1319,16 +1399,16 @@ INPUT CONSTRAINTS in Z3:
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
  x_1 >= 0 + 1 + a,
- ToReal(x_1) <= 0 + a**2 + ToReal(2*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a)]
+ x_1 <= 0 + ToInt(a**2) + 2*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 <= 0 + 2*ToInt(a**3) + 6*a + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.06; Elapsed time: 4.53; Current counts: {'SAT': 0, 'UNSAT': 68, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 6.43; Current counts: {'SAT': 0, 'UNSAT': 68, 'UNKNOWN': 0}
 ############################################################################
 
 Case 19 — Intervals for LHS variables: ('R2', 'R1'), RHS interval candidates: ['R1', 'R2']
@@ -1338,16 +1418,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
  x_2 >= 0 + 1 + a,
- ToReal(x_2) <= 0 + a**2 + ToReal(2*a),
+ x_2 <= 0 + ToInt(a**2) + 2*a,
  x_3 >= 0 + 1 + a,
- ToReal(x_3) <= 0 + a**2 + ToReal(2*a)]
+ x_3 <= 0 + ToInt(a**2) + 2*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 2*a + 4*ToInt(a**3) + 5*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 2*a + 5*ToInt(a**3) + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.16; Elapsed time: 4.69; Current counts: {'SAT': 0, 'UNSAT': 69, 'UNKNOWN': 0}
+Case time: 0.17; Elapsed time: 6.60; Current counts: {'SAT': 0, 'UNSAT': 69, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 19.2 — Intervals for LHS variables: ('R2', 'R1'), RHS candidate: R2
@@ -1355,17 +1437,18 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
  x_2 >= 0 + 1 + a,
- ToReal(x_2) <= 0 + a**2 + ToReal(2*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a)]
+ x_2 <= 0 + ToInt(a**2) + 2*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 2*a + 4*ToInt(a**3) + 5*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 2*a + 5*ToInt(a**3) + 7*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.06; Elapsed time: 4.75; Current counts: {'SAT': 0, 'UNSAT': 70, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 6.69; Current counts: {'SAT': 0, 'UNSAT': 70, 'UNKNOWN': 0}
 ############################################################################
 
 Case 20 — Intervals for LHS variables: ('R2', 'R2'), RHS interval candidates: ['R1', 'R2']
@@ -1375,17 +1458,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
  x_3 >= 0 + 1 + a,
- ToReal(x_3) <= 0 + a**2 + ToReal(2*a)]
+ x_3 <= 0 + ToInt(a**2) + 2*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*ToInt(a**3) + 6*a + 9*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 6*a + 6*ToInt(a**3) + 11*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.12; Elapsed time: 4.87; Current counts: {'SAT': 0, 'UNSAT': 71, 'UNKNOWN': 0}
+Case time: 0.16; Elapsed time: 6.85; Current counts: {'SAT': 0, 'UNSAT': 71, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 20.2 — Intervals for LHS variables: ('R2', 'R2'), RHS candidate: R2
@@ -1393,18 +1478,19 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_2) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a),
- ToReal(x_3) >=
-ToReal(0 + 1) + a**3 + ToReal(4)*a**2 + ToReal(5*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(5)*a**2 + ToReal(6*a)]
+ x_1 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_1 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_2 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_2 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*ToInt(a**2) + 5*a,
+ x_3 <= 0 + ToInt(a**3) + 5*ToInt(a**2) + 6*a,
+ x_3 >=
+0 + 1 + ToInt(a**4) + 5*ToInt(a**3) + 6*a + 9*ToInt(a**2),
+ x_3 <=
+0 + ToInt(a**4) + 6*a + 6*ToInt(a**3) + 11*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.07; Elapsed time: 4.94; Current counts: {'SAT': 0, 'UNSAT': 72, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 6.95; Current counts: {'SAT': 0, 'UNSAT': 72, 'UNKNOWN': 0}
 ############################################################################
 
 Case 21 — Intervals for LHS variables: ('B1', 'B1'), RHS interval candidates: ['B1']
@@ -1414,20 +1500,22 @@ INPUT CONSTRAINTS in Z3:
 ----------------------------------------------------------------------------
 [0 == 0 + x_2 + -1*x_3 + a*x_1,
  2 <= a,
- ToReal(x_1) >= ToReal(0 + 1) + a**2 + ToReal(3*a),
- ToReal(x_1) <= 0 + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_2) >= ToReal(0 + 1) + a**2 + ToReal(3*a),
- ToReal(x_2) <= 0 + a**3 + ToReal(4*a) + ToReal(4)*a**2,
- ToReal(x_3) >= ToReal(0 + 1) + a**2 + ToReal(3*a),
- ToReal(x_3) <= 0 + a**3 + ToReal(4*a) + ToReal(4)*a**2]
+ x_1 >= 0 + 1 + ToInt(a**2) + 3*a,
+ x_1 <= 0 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_2 >= 0 + 1 + ToInt(a**2) + 3*a,
+ x_2 <= 0 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 >= 0 + 1 + ToInt(a**2) + 3*a,
+ x_3 <= 0 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 >= 0 + 1 + ToInt(a**3) + 4*a + 4*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**4) + 4*a + 5*ToInt(a**3) + 8*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B1
-Case time: 0.12; Elapsed time: 5.05; Current counts: {'SAT': 0, 'UNSAT': 73, 'UNKNOWN': 0}
+Case time: 0.15; Elapsed time: 7.10; Current counts: {'SAT': 0, 'UNSAT': 73, 'UNKNOWN': 0}
 ############################################################################
 
 
 All cases led to contradiction?: True
 
-Total proof-generation time: 5.05
+Total proof-generation time: 7.10
 
 Total proof-subcases result summary: {'SAT': 0, 'UNSAT': 73, 'UNKNOWN': 0}

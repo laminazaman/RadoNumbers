@@ -131,7 +131,7 @@ class FilteredIntervalsColorCaseProver:
 
         equation = a * x1 + a * x2 == (a + 1) * x3
         assumptions = [a >= 7, a % 2 != 0]
-        upper_bound_expr = 'a**3 * (a + 1)'
+        upper_bound_expr = z3.Int('a')**3 * (z3.Int('a')+1) # 'a**3 * (a + 1)'
         div_tags = [(c[0], str(c[1]), str(c[2])) for c in thm]
 
         checker = IntegralityLemmaChecker_a_a_ap1(equation, assumptions, upper_bound_expr)
@@ -242,6 +242,7 @@ class FilteredIntervalsColorCaseProver:
                     eq = sp.Eq(eq_expr, 0)
                     assumptions = self.assumptions
                     constraints = self.get_all_constraints(lhs_vars, lhs_intervals, rhs_var, target)
+                    constraints.extend([rhs_var >= z_min, rhs_var <= z_max])
                     vars = Z3Solver.extract_all_symbols(constraints)
                     z3solver = Z3Solver(vars, constraints=[eq] + assumptions + constraints)
                     print('INPUT CONSTRAINTS in Z3:')

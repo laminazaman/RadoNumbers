@@ -30,7 +30,7 @@ Prover setup:
                       'format_expr': None,
                       'format_ranges': {},
                       'format_vars': [],
-                      'lower': a*b**2 + 1,
+                      'lower': a*b**2 + b,
                       'must_divide': [b],
                       'must_not_divide': [],
                       'symbols': [a, b],
@@ -146,7 +146,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -155,17 +155,19 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  x_1 >= 0 + 1 + a*b,
- ToReal(x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_1 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_1 != b*k)),
  x_2 >= 0 + 1 + a*b,
- ToReal(x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_2 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_2 != b*k)),
  x_3 >= 0 + 1 + a*b,
- ToReal(x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ x_3 <= 0 + a*b + b*ToInt(a**2),
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >= 0 + a + b + a*ToInt(b**2) + b*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**2) + ToInt(a**3) + a*b + b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.21; Elapsed time: 0.21; Current counts: {'SAT': 0, 'UNSAT': 1, 'UNKNOWN': 0}
+Case time: 0.68; Elapsed time: 0.68; Current counts: {'SAT': 0, 'UNSAT': 1, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 1.2 — Intervals for LHS variables: ('D1', 'D1'), RHS candidate: D2
@@ -175,7 +177,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -184,16 +186,18 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  x_1 >= 0 + 1 + a*b,
- ToReal(x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_1 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_1 != b*k)),
  x_2 >= 0 + 1 + a*b,
- ToReal(x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_2 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(x_3) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b)]
+ x_3 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ b*x_3 >= 0 + a + b + a*ToInt(b**2) + b*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**2) + ToInt(a**3) + a*b + b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.07; Elapsed time: 0.28; Current counts: {'SAT': 0, 'UNSAT': 2, 'UNKNOWN': 0}
+Case time: 0.20; Elapsed time: 0.88; Current counts: {'SAT': 0, 'UNSAT': 2, 'UNKNOWN': 0}
 ############################################################################
 
 Case 2 — Intervals for LHS variables: ('D1', 'D2'), RHS interval candidates: ['D1', 'D2']
@@ -205,7 +209,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -214,16 +218,24 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  x_1 >= 0 + 1 + a*b,
- ToReal(x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_1 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(x_2) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
+ x_2 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
  x_3 >= 0 + 1 + a*b,
- ToReal(x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ x_3 <= 0 + a*b + b*ToInt(a**2),
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >=
+0 +
+a +
+b +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+ToInt(a**2)*ToInt(b**2),
+ x_3 <= 0 + a + 2*ToInt(a**2) + 2*ToInt(a**3) + a*b]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.12; Elapsed time: 0.40; Current counts: {'SAT': 0, 'UNSAT': 3, 'UNKNOWN': 0}
+Case time: 0.20; Elapsed time: 1.08; Current counts: {'SAT': 0, 'UNSAT': 3, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 2.2 — Intervals for LHS variables: ('D1', 'D2'), RHS candidate: D2
@@ -233,7 +245,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -242,15 +254,23 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  x_1 >= 0 + 1 + a*b,
- ToReal(x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_1 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(x_2) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b)]
+ x_2 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ b*x_3 >=
+0 +
+a +
+b +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+ToInt(a**2)*ToInt(b**2),
+ x_3 <= 0 + a + 2*ToInt(a**2) + 2*ToInt(a**3) + a*b]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.06; Elapsed time: 0.47; Current counts: {'SAT': 0, 'UNSAT': 4, 'UNKNOWN': 0}
+Case time: 0.24; Elapsed time: 1.32; Current counts: {'SAT': 0, 'UNSAT': 4, 'UNKNOWN': 0}
 ############################################################################
 
 Case 3 — Intervals for LHS variables: ('D2', 'D1'), RHS interval candidates: ['D1', 'D2']
@@ -262,7 +282,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -270,17 +290,27 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
+ x_1 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
  x_2 >= 0 + 1 + a*b,
- ToReal(x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_2 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_2 != b*k)),
  x_3 >= 0 + 1 + a*b,
- ToReal(x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ x_3 <= 0 + a*b + b*ToInt(a**2),
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >=
+0 + a + b + a*ToInt(b**2) + b*ToInt(a**2) + b*ToInt(a**3),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+ToInt(a**2)*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.12; Elapsed time: 0.58; Current counts: {'SAT': 0, 'UNSAT': 5, 'UNKNOWN': 0}
+Case time: 0.35; Elapsed time: 1.67; Current counts: {'SAT': 0, 'UNSAT': 5, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 3.2 — Intervals for LHS variables: ('D2', 'D1'), RHS candidate: D2
@@ -290,7 +320,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -298,16 +328,26 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
+ x_1 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
  x_2 >= 0 + 1 + a*b,
- ToReal(x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ x_2 <= 0 + a*b + b*ToInt(a**2),
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(x_3) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b)]
+ x_3 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ b*x_3 >=
+0 + a + b + a*ToInt(b**2) + b*ToInt(a**2) + b*ToInt(a**3),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+ToInt(a**2)*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.07; Elapsed time: 0.65; Current counts: {'SAT': 0, 'UNSAT': 6, 'UNKNOWN': 0}
+Case time: 0.22; Elapsed time: 1.90; Current counts: {'SAT': 0, 'UNSAT': 6, 'UNKNOWN': 0}
 ############################################################################
 
 Case 4 — Intervals for LHS variables: ('D2', 'D2'), RHS interval candidates: ['D1', 'D2']
@@ -319,7 +359,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -327,16 +367,33 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
+ x_1 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
  x_3 >= 0 + 1 + a*b,
- ToReal(x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ x_3 <= 0 + a*b + b*ToInt(a**2),
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >=
+0 +
+a +
+b +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+b*ToInt(a**3) +
+ToInt(a**2)*ToInt(b**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**3) +
+2*b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D1
-Case time: 0.11; Elapsed time: 0.76; Current counts: {'SAT': 0, 'UNSAT': 7, 'UNKNOWN': 0}
+Case time: 0.26; Elapsed time: 2.16; Current counts: {'SAT': 0, 'UNSAT': 7, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 4.2 — Intervals for LHS variables: ('D2', 'D2'), RHS candidate: D2
@@ -346,7 +403,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -354,15 +411,32 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) >= ToReal(0 + 1 + a*b) + ToReal(b)*a**2,
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(a*b)]
+ x_1 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 >= 0 + 1 + a*b + b*ToInt(a**2),
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ b*x_3 >=
+0 +
+a +
+b +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+b*ToInt(a**3) +
+ToInt(a**2)*ToInt(b**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**3) +
+2*b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ D2
-Case time: 0.07; Elapsed time: 0.83; Current counts: {'SAT': 0, 'UNSAT': 8, 'UNKNOWN': 0}
+Case time: 0.24; Elapsed time: 2.39; Current counts: {'SAT': 0, 'UNSAT': 8, 'UNKNOWN': 0}
 ############################################################################
 
 Case 5 — Intervals for LHS variables: ('R1', 'R1'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -374,7 +448,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -390,10 +464,12 @@ INPUT CONSTRAINTS in Z3:
  ForAll(k, And(k > 0, x_2 != b*k)),
  1 <= x_3,
  x_3 <= a*b,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >= 0 + a + b,
+ x_3 <= 0 + ToInt(a**2) + a*b]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.06; Elapsed time: 0.89; Current counts: {'SAT': 0, 'UNSAT': 9, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 2.47; Current counts: {'SAT': 0, 'UNSAT': 9, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 5.2 — Intervals for LHS variables: ('R1', 'R1'), RHS candidate: R2
@@ -403,7 +479,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -417,13 +493,15 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_2,
  x_2 <= a*b,
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ b*x_3 >= 0 + a + b,
+ x_3 <= 0 + ToInt(a**2) + a*b,
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.05; Elapsed time: 0.94; Current counts: {'SAT': 0, 'UNSAT': 10, 'UNKNOWN': 0}
+Case time: 0.29; Elapsed time: 2.76; Current counts: {'SAT': 0, 'UNSAT': 10, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 5.3 — Intervals for LHS variables: ('R1', 'R1'), RHS candidate: R3
@@ -433,7 +511,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -447,11 +525,13 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_2,
  x_2 <= a*b,
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b)]
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ b*x_3 >= 0 + a + b,
+ x_3 <= 0 + ToInt(a**2) + a*b]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.07; Elapsed time: 1.01; Current counts: {'SAT': 0, 'UNSAT': 11, 'UNKNOWN': 0}
+Case time: 0.07; Elapsed time: 2.83; Current counts: {'SAT': 0, 'UNSAT': 11, 'UNKNOWN': 0}
 ############################################################################
 
 Case 6 — Intervals for LHS variables: ('R1', 'R2'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -463,7 +543,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -474,16 +554,18 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_1,
  x_1 <= a*b,
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
  1 <= x_3,
  x_3 <= a*b,
  ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >= 0 + a + ToInt(b**3),
+ x_3 <= 0 + ToInt(a**2) + a*ToInt(b**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2]
+ x_2 == k_x_2*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.07; Elapsed time: 1.08; Current counts: {'SAT': 0, 'UNSAT': 12, 'UNKNOWN': 0}
+Case time: 0.15; Elapsed time: 2.98; Current counts: {'SAT': 0, 'UNSAT': 12, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 6.2 — Intervals for LHS variables: ('R1', 'R2'), RHS candidate: R2
@@ -493,7 +575,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -504,17 +586,19 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_1,
  x_1 <= a*b,
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ b*x_3 >= 0 + a + ToInt(b**3),
+ x_3 <= 0 + ToInt(a**2) + a*ToInt(b**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2,
+ x_2 == k_x_2*ToInt(b**2),
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.05; Elapsed time: 1.13; Current counts: {'SAT': 0, 'UNSAT': 13, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 3.08; Current counts: {'SAT': 0, 'UNSAT': 13, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 6.3 — Intervals for LHS variables: ('R1', 'R2'), RHS candidate: R3
@@ -524,7 +608,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -535,15 +619,17 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_1,
  x_1 <= a*b,
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ b*x_3 >= 0 + a + ToInt(b**3),
+ x_3 <= 0 + ToInt(a**2) + a*ToInt(b**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2]
+ x_2 == k_x_2*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.06; Elapsed time: 1.19; Current counts: {'SAT': 0, 'UNSAT': 14, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 3.18; Current counts: {'SAT': 0, 'UNSAT': 14, 'UNKNOWN': 0}
 ############################################################################
 
 Case 7 — Intervals for LHS variables: ('R1', 'R3'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -555,7 +641,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -566,14 +652,23 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_1,
  x_1 <= a*b,
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
  1 <= x_3,
  x_3 <= a*b,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >=
+0 +
+a +
+b +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+b*ToInt(a**3),
+ x_3 <= 0 + a + ToInt(a**3) + 2*ToInt(a**2) + 2*a*b]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.11; Elapsed time: 1.29; Current counts: {'SAT': 0, 'UNSAT': 15, 'UNKNOWN': 0}
+Case time: 0.22; Elapsed time: 3.40; Current counts: {'SAT': 0, 'UNSAT': 15, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 7.2 — Intervals for LHS variables: ('R1', 'R3'), RHS candidate: R2
@@ -583,7 +678,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -594,15 +689,24 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_1,
  x_1 <= a*b,
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ b*x_3 >=
+0 +
+a +
+b +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+b*ToInt(a**3),
+ x_3 <= 0 + a + ToInt(a**3) + 2*ToInt(a**2) + 2*a*b,
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.06; Elapsed time: 1.36; Current counts: {'SAT': 0, 'UNSAT': 16, 'UNKNOWN': 0}
+Case time: 0.17; Elapsed time: 3.57; Current counts: {'SAT': 0, 'UNSAT': 16, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 7.3 — Intervals for LHS variables: ('R1', 'R3'), RHS candidate: R3
@@ -612,7 +716,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -623,13 +727,22 @@ INPUT CONSTRAINTS in Z3:
  1 <= x_1,
  x_1 <= a*b,
  ForAll(k, And(k > 0, x_1 != b*k)),
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b)]
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ b*x_3 >=
+0 +
+a +
+b +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**2) +
+b*ToInt(a**3),
+ x_3 <= 0 + a + ToInt(a**3) + 2*ToInt(a**2) + 2*a*b]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.07; Elapsed time: 1.43; Current counts: {'SAT': 0, 'UNSAT': 17, 'UNKNOWN': 0}
+Case time: 0.23; Elapsed time: 3.80; Current counts: {'SAT': 0, 'UNSAT': 17, 'UNKNOWN': 0}
 ############################################################################
 
 Case 8 — Intervals for LHS variables: ('R2', 'R1'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -656,7 +769,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 != b*k_x_3]
 
 Contradiction by Lemma: [('divides', b**2, x_1), ('not_divides', b, x_2), ('not_divides', b, x_3)] ⇒ No integer solution
-Case time: 0.04; Elapsed time: 1.47; Current counts: {'SAT': 0, 'UNSAT': 18, 'UNKNOWN': 0}
+Case time: 0.04; Elapsed time: 3.84; Current counts: {'SAT': 0, 'UNSAT': 18, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 8.2 — Intervals for LHS variables: ('R2', 'R1'), RHS candidate: R2
@@ -666,7 +779,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -674,20 +787,22 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(k_x_1)*b**2 >= b**2,
- ToReal(k_x_1)*b**2 <= ToReal(a)*b**2,
+ k_x_1*ToInt(b**2) >= ToInt(b**2),
+ k_x_1*ToInt(b**2) <= a*ToInt(b**2),
  1 <= x_2,
  x_2 <= a*b,
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ x_3 >= 0 + 1 + a*b,
+ x_3 <= 0 + a*b + b*ToInt(a**2),
  1 <= k_x_1,
- ToReal(x_1) == ToReal(k_x_1)*b**2,
+ x_1 == k_x_1*ToInt(b**2),
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.07; Elapsed time: 1.54; Current counts: {'SAT': 0, 'UNSAT': 19, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 3.94; Current counts: {'SAT': 0, 'UNSAT': 19, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 8.3 — Intervals for LHS variables: ('R2', 'R1'), RHS candidate: R3
@@ -697,7 +812,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -705,18 +820,20 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(k_x_1)*b**2 >= b**2,
- ToReal(k_x_1)*b**2 <= ToReal(a)*b**2,
+ k_x_1*ToInt(b**2) >= ToInt(b**2),
+ k_x_1*ToInt(b**2) <= a*ToInt(b**2),
  1 <= x_2,
  x_2 <= a*b,
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 >= 0 + 1 + a*b,
+ x_3 <= 0 + a*b + b*ToInt(a**2),
  1 <= k_x_1,
- ToReal(x_1) == ToReal(k_x_1)*b**2]
+ x_1 == k_x_1*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.09; Elapsed time: 1.63; Current counts: {'SAT': 0, 'UNSAT': 20, 'UNKNOWN': 0}
+Case time: 0.12; Elapsed time: 4.06; Current counts: {'SAT': 0, 'UNSAT': 20, 'UNKNOWN': 0}
 ############################################################################
 
 Case 9 — Intervals for LHS variables: ('R2', 'R2'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -728,7 +845,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -736,20 +853,22 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(k_x_1)*b**2 >= b**2,
- ToReal(k_x_1)*b**2 <= ToReal(a)*b**2,
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
+ k_x_1*ToInt(b**2) >= ToInt(b**2),
+ k_x_1*ToInt(b**2) <= a*ToInt(b**2),
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
  1 <= x_3,
  x_3 <= a*b,
  ForAll(k, And(k > 0, x_3 != b*k)),
+ x_3 >= 0 + ToInt(b**2) + a*b,
+ x_3 <= 0 + a*ToInt(b**2) + b*ToInt(a**2),
  1 <= k_x_1,
- ToReal(x_1) == ToReal(k_x_1)*b**2,
+ x_1 == k_x_1*ToInt(b**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2]
+ x_2 == k_x_2*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.09; Elapsed time: 1.71; Current counts: {'SAT': 0, 'UNSAT': 21, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 4.16; Current counts: {'SAT': 0, 'UNSAT': 21, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 9.2 — Intervals for LHS variables: ('R2', 'R2'), RHS candidate: R2
@@ -776,7 +895,7 @@ INPUT CONSTRAINTS in Z3:
  k_x_3 > 0]
 
 Contradiction by Lemma: [('divides', b**2, x_1), ('divides', b**2, x_2), ('divides', b**2, x_3)] ⇒ No integer solution
-Case time: 0.03; Elapsed time: 1.74; Current counts: {'SAT': 0, 'UNSAT': 22, 'UNKNOWN': 0}
+Case time: 0.03; Elapsed time: 4.19; Current counts: {'SAT': 0, 'UNSAT': 22, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 9.3 — Intervals for LHS variables: ('R2', 'R2'), RHS candidate: R3
@@ -786,7 +905,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -794,19 +913,21 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(k_x_1)*b**2 >= b**2,
- ToReal(k_x_1)*b**2 <= ToReal(a)*b**2,
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ k_x_1*ToInt(b**2) >= ToInt(b**2),
+ k_x_1*ToInt(b**2) <= a*ToInt(b**2),
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 >= 0 + ToInt(b**2) + a*b,
+ x_3 <= 0 + a*ToInt(b**2) + b*ToInt(a**2),
  1 <= k_x_1,
- ToReal(x_1) == ToReal(k_x_1)*b**2,
+ x_1 == k_x_1*ToInt(b**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2]
+ x_2 == k_x_2*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.08; Elapsed time: 1.82; Current counts: {'SAT': 0, 'UNSAT': 23, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 4.33; Current counts: {'SAT': 0, 'UNSAT': 23, 'UNKNOWN': 0}
 ############################################################################
 
 Case 10 — Intervals for LHS variables: ('R2', 'R3'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -818,7 +939,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -826,18 +947,21 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(k_x_1)*b**2 >= b**2,
- ToReal(k_x_1)*b**2 <= ToReal(a)*b**2,
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ k_x_1*ToInt(b**2) >= ToInt(b**2),
+ k_x_1*ToInt(b**2) <= a*ToInt(b**2),
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
  1 <= x_3,
  x_3 <= a*b,
  ForAll(k, And(k > 0, x_3 != b*k)),
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 <=
+0 + a + ToInt(a**2) + ToInt(a**3) + b*ToInt(a**2) + 2*a*b,
  1 <= k_x_1,
- ToReal(x_1) == ToReal(k_x_1)*b**2]
+ x_1 == k_x_1*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.11; Elapsed time: 1.93; Current counts: {'SAT': 0, 'UNSAT': 24, 'UNKNOWN': 0}
+Case time: 0.19; Elapsed time: 4.51; Current counts: {'SAT': 0, 'UNSAT': 24, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 10.2 — Intervals for LHS variables: ('R2', 'R3'), RHS candidate: R2
@@ -847,7 +971,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -855,19 +979,22 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(k_x_1)*b**2 >= b**2,
- ToReal(k_x_1)*b**2 <= ToReal(a)*b**2,
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ k_x_1*ToInt(b**2) >= ToInt(b**2),
+ k_x_1*ToInt(b**2) <= a*ToInt(b**2),
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 <=
+0 + a + ToInt(a**2) + ToInt(a**3) + b*ToInt(a**2) + 2*a*b,
  1 <= k_x_1,
- ToReal(x_1) == ToReal(k_x_1)*b**2,
+ x_1 == k_x_1*ToInt(b**2),
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.07; Elapsed time: 2.01; Current counts: {'SAT': 0, 'UNSAT': 25, 'UNKNOWN': 0}
+Case time: 0.15; Elapsed time: 4.67; Current counts: {'SAT': 0, 'UNSAT': 25, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 10.3 — Intervals for LHS variables: ('R2', 'R3'), RHS candidate: R3
@@ -877,7 +1004,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -885,17 +1012,20 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(k_x_1)*b**2 >= b**2,
- ToReal(k_x_1)*b**2 <= ToReal(a)*b**2,
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ k_x_1*ToInt(b**2) >= ToInt(b**2),
+ k_x_1*ToInt(b**2) <= a*ToInt(b**2),
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 <=
+0 + a + ToInt(a**2) + ToInt(a**3) + b*ToInt(a**2) + 2*a*b,
  1 <= k_x_1,
- ToReal(x_1) == ToReal(k_x_1)*b**2]
+ x_1 == k_x_1*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.09; Elapsed time: 2.10; Current counts: {'SAT': 0, 'UNSAT': 26, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 4.80; Current counts: {'SAT': 0, 'UNSAT': 26, 'UNKNOWN': 0}
 ############################################################################
 
 Case 11 — Intervals for LHS variables: ('R3', 'R1'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -907,7 +1037,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -915,17 +1045,32 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
  1 <= x_2,
  x_2 <= a*b,
  ForAll(k, And(k > 0, x_2 != b*k)),
  1 <= x_3,
  x_3 <= a*b,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >=
+0 +
+a +
+b +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**2) +
+2*b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.11; Elapsed time: 2.21; Current counts: {'SAT': 0, 'UNSAT': 27, 'UNKNOWN': 0}
+Case time: 0.31; Elapsed time: 5.11; Current counts: {'SAT': 0, 'UNSAT': 27, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 11.2 — Intervals for LHS variables: ('R3', 'R1'), RHS candidate: R2
@@ -935,7 +1080,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -943,18 +1088,33 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
  1 <= x_2,
  x_2 <= a*b,
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ b*x_3 >=
+0 +
+a +
+b +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**2) +
+2*b*ToInt(a**2),
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.07; Elapsed time: 2.27; Current counts: {'SAT': 0, 'UNSAT': 28, 'UNKNOWN': 0}
+Case time: 0.25; Elapsed time: 5.36; Current counts: {'SAT': 0, 'UNSAT': 28, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 11.3 — Intervals for LHS variables: ('R3', 'R1'), RHS candidate: R3
@@ -964,7 +1124,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -972,16 +1132,31 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
  1 <= x_2,
  x_2 <= a*b,
  ForAll(k, And(k > 0, x_2 != b*k)),
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b)]
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ b*x_3 >=
+0 +
+a +
+b +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**2) +
+2*b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.08; Elapsed time: 2.35; Current counts: {'SAT': 0, 'UNSAT': 29, 'UNKNOWN': 0}
+Case time: 0.22; Elapsed time: 5.57; Current counts: {'SAT': 0, 'UNSAT': 29, 'UNKNOWN': 0}
 ############################################################################
 
 Case 12 — Intervals for LHS variables: ('R3', 'R2'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -993,7 +1168,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1001,18 +1176,33 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
  1 <= x_3,
  x_3 <= a*b,
  ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >=
+0 +
+a +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+ToInt(b**3) +
+b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**3) +
+2*b*ToInt(a**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2]
+ x_2 == k_x_2*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.10; Elapsed time: 2.46; Current counts: {'SAT': 0, 'UNSAT': 30, 'UNKNOWN': 0}
+Case time: 0.34; Elapsed time: 5.91; Current counts: {'SAT': 0, 'UNSAT': 30, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 12.2 — Intervals for LHS variables: ('R3', 'R2'), RHS candidate: R2
@@ -1022,7 +1212,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1030,19 +1220,34 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ b*x_3 >=
+0 +
+a +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+ToInt(b**3) +
+b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**3) +
+2*b*ToInt(a**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2,
+ x_2 == k_x_2*ToInt(b**2),
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.07; Elapsed time: 2.53; Current counts: {'SAT': 0, 'UNSAT': 31, 'UNKNOWN': 0}
+Case time: 0.32; Elapsed time: 6.23; Current counts: {'SAT': 0, 'UNSAT': 31, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 12.3 — Intervals for LHS variables: ('R3', 'R2'), RHS candidate: R3
@@ -1052,7 +1257,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1060,17 +1265,32 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(k_x_2)*b**2 >= b**2,
- ToReal(k_x_2)*b**2 <= ToReal(a)*b**2,
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ k_x_2*ToInt(b**2) >= ToInt(b**2),
+ k_x_2*ToInt(b**2) <= a*ToInt(b**2),
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ b*x_3 >=
+0 +
+a +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+ToInt(b**3) +
+b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*ToInt(b**3) +
+2*b*ToInt(a**2),
  1 <= k_x_2,
- ToReal(x_2) == ToReal(k_x_2)*b**2]
+ x_2 == k_x_2*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.08; Elapsed time: 2.61; Current counts: {'SAT': 0, 'UNSAT': 32, 'UNKNOWN': 0}
+Case time: 0.17; Elapsed time: 6.40; Current counts: {'SAT': 0, 'UNSAT': 32, 'UNKNOWN': 0}
 ############################################################################
 
 Case 13 — Intervals for LHS variables: ('R3', 'R3'), RHS interval candidates: ['R1', 'R2', 'R3']
@@ -1082,7 +1302,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1090,16 +1310,36 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
  1 <= x_3,
  x_3 <= a*b,
- ForAll(k, And(k > 0, x_3 != b*k))]
+ ForAll(k, And(k > 0, x_3 != b*k)),
+ b*x_3 >=
+0 +
+a +
+b +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**3) +
+2*b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+b*ToInt(a**3) +
+2*a*ToInt(b**2) +
+3*b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R1
-Case time: 0.13; Elapsed time: 2.74; Current counts: {'SAT': 0, 'UNSAT': 33, 'UNKNOWN': 0}
+Case time: 0.65; Elapsed time: 7.05; Current counts: {'SAT': 0, 'UNSAT': 33, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 13.2 — Intervals for LHS variables: ('R3', 'R3'), RHS candidate: R2
@@ -1109,7 +1349,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1117,17 +1357,37 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(k_x_3)*b**2 >= b**2,
- ToReal(k_x_3)*b**2 <= ToReal(a)*b**2,
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ k_x_3*ToInt(b**2) >= ToInt(b**2),
+ k_x_3*ToInt(b**2) <= a*ToInt(b**2),
+ b*x_3 >=
+0 +
+a +
+b +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**3) +
+2*b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+b*ToInt(a**3) +
+2*a*ToInt(b**2) +
+3*b*ToInt(a**2),
  1 <= k_x_3,
- ToReal(x_3) == ToReal(k_x_3)*b**2]
+ x_3 == k_x_3*ToInt(b**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R2
-Case time: 0.08; Elapsed time: 2.82; Current counts: {'SAT': 0, 'UNSAT': 34, 'UNKNOWN': 0}
+Case time: 0.84; Elapsed time: 7.89; Current counts: {'SAT': 0, 'UNSAT': 34, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 13.3 — Intervals for LHS variables: ('R3', 'R3'), RHS candidate: R3
@@ -1137,7 +1397,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1145,15 +1405,35 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(x_1) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_1) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(x_2) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_2) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b),
- ToReal(x_3) >= ToReal(0 + 1 + a) + a**2 + a**3 + ToReal(a*b),
- ToReal(x_3) <= ToReal(0 + a) + a**2 + a**3 + ToReal(2*a*b)]
+ x_1 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_1 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_2 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_2 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ x_3 >= 0 + 1 + a + ToInt(a**2) + ToInt(a**3) + a*b,
+ x_3 <= 0 + a + ToInt(a**2) + ToInt(a**3) + 2*a*b,
+ b*x_3 >=
+0 +
+a +
+b +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+a*ToInt(b**2) +
+b*ToInt(a**3) +
+2*b*ToInt(a**2),
+ b*x_3 <=
+0 +
+ToInt(a**2) +
+ToInt(a**3) +
+ToInt(a**4) +
+a*b +
+b*ToInt(a**3) +
+2*a*ToInt(b**2) +
+3*b*ToInt(a**2)]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ R3
-Case time: 0.10; Elapsed time: 2.92; Current counts: {'SAT': 0, 'UNSAT': 35, 'UNKNOWN': 0}
+Case time: 0.69; Elapsed time: 8.57; Current counts: {'SAT': 0, 'UNSAT': 35, 'UNKNOWN': 0}
 ############################################################################
 
 Case 14 — Intervals for LHS variables: ('B1', 'B1'), RHS interval candidates: ['B1', 'B2']
@@ -1165,7 +1445,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1174,14 +1454,16 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  1 <= b*k_x_1,
- ToReal(b*k_x_1) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_1) != b**2*ToReal(k))),
+ b*k_x_1 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_1 != ToInt(b**2)*k)),
  1 <= b*k_x_2,
- ToReal(b*k_x_2) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_2) != b**2*ToReal(k))),
+ b*k_x_2 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_2 != ToInt(b**2)*k)),
  1 <= b*k_x_3,
- ToReal(b*k_x_3) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_3) != b**2*ToReal(k))),
+ b*k_x_3 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_3 != ToInt(b**2)*k)),
+ b*x_3 >= 0 + a + b,
+ x_3 <= 0 + a*ToInt(b**2) + b*ToInt(a**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1190,7 +1472,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B1
-Case time: 0.63; Elapsed time: 3.55; Current counts: {'SAT': 0, 'UNSAT': 36, 'UNKNOWN': 0}
+Case time: 0.11; Elapsed time: 8.69; Current counts: {'SAT': 0, 'UNSAT': 36, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 14.2 — Intervals for LHS variables: ('B1', 'B1'), RHS candidate: B2
@@ -1200,7 +1482,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1209,13 +1491,15 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  1 <= b*k_x_1,
- ToReal(b*k_x_1) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_1) != b**2*ToReal(k))),
+ b*k_x_1 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_1 != ToInt(b**2)*k)),
  1 <= b*k_x_2,
- ToReal(b*k_x_2) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_2) != b**2*ToReal(k))),
- ToReal(b*k_x_3) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_2 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_2 != ToInt(b**2)*k)),
+ b*k_x_3 >= 0 + b + a*ToInt(b**2),
+ b*k_x_3 <= 0 + a*b + b*ToInt(a**2),
+ b*x_3 >= 0 + a + b,
+ x_3 <= 0 + a*ToInt(b**2) + b*ToInt(a**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1224,7 +1508,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B2
-Case time: 0.08; Elapsed time: 3.63; Current counts: {'SAT': 0, 'UNSAT': 37, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 8.77; Current counts: {'SAT': 0, 'UNSAT': 37, 'UNKNOWN': 0}
 ############################################################################
 
 Case 15 — Intervals for LHS variables: ('B1', 'B2'), RHS interval candidates: ['B1', 'B2']
@@ -1236,7 +1520,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1245,13 +1529,15 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  1 <= b*k_x_1,
- ToReal(b*k_x_1) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_1) != b**2*ToReal(k))),
- ToReal(b*k_x_2) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_1 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_1 != ToInt(b**2)*k)),
+ b*k_x_2 >= 0 + b + a*ToInt(b**2),
+ b*k_x_2 <= 0 + a*b + b*ToInt(a**2),
  1 <= b*k_x_3,
- ToReal(b*k_x_3) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_3) != b**2*ToReal(k))),
+ b*k_x_3 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_3 != ToInt(b**2)*k)),
+ b*x_3 >= 0 + a + ToInt(b**2) + a*ToInt(b**3),
+ x_3 <= 0 + a*b + 2*b*ToInt(a**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1260,7 +1546,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B1
-Case time: 0.13; Elapsed time: 3.76; Current counts: {'SAT': 0, 'UNSAT': 38, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 8.91; Current counts: {'SAT': 0, 'UNSAT': 38, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 15.2 — Intervals for LHS variables: ('B1', 'B2'), RHS candidate: B2
@@ -1270,7 +1556,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1279,12 +1565,14 @@ INPUT CONSTRAINTS in Z3:
    0) ==
 1,
  1 <= b*k_x_1,
- ToReal(b*k_x_1) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_1) != b**2*ToReal(k))),
- ToReal(b*k_x_2) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ToReal(b*k_x_3) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_1 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_1 != ToInt(b**2)*k)),
+ b*k_x_2 >= 0 + b + a*ToInt(b**2),
+ b*k_x_2 <= 0 + a*b + b*ToInt(a**2),
+ b*k_x_3 >= 0 + b + a*ToInt(b**2),
+ b*k_x_3 <= 0 + a*b + b*ToInt(a**2),
+ b*x_3 >= 0 + a + ToInt(b**2) + a*ToInt(b**3),
+ x_3 <= 0 + a*b + 2*b*ToInt(a**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1293,7 +1581,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B2
-Case time: 0.10; Elapsed time: 3.86; Current counts: {'SAT': 0, 'UNSAT': 39, 'UNKNOWN': 0}
+Case time: 0.09; Elapsed time: 9.00; Current counts: {'SAT': 0, 'UNSAT': 39, 'UNKNOWN': 0}
 ############################################################################
 
 Case 16 — Intervals for LHS variables: ('B2', 'B1'), RHS interval candidates: ['B1', 'B2']
@@ -1305,7 +1593,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1313,14 +1601,16 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(b*k_x_1) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_1 >= 0 + b + a*ToInt(b**2),
+ b*k_x_1 <= 0 + a*b + b*ToInt(a**2),
  1 <= b*k_x_2,
- ToReal(b*k_x_2) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_2) != b**2*ToReal(k))),
+ b*k_x_2 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_2 != ToInt(b**2)*k)),
  1 <= b*k_x_3,
- ToReal(b*k_x_3) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_3) != b**2*ToReal(k))),
+ b*k_x_3 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_3 != ToInt(b**2)*k)),
+ x_3 >= 0 + 1 + a + b*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**2) + ToInt(a**3) + a*ToInt(b**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1329,7 +1619,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B1
-Case time: 0.15; Elapsed time: 4.01; Current counts: {'SAT': 0, 'UNSAT': 40, 'UNKNOWN': 0}
+Case time: 0.13; Elapsed time: 9.13; Current counts: {'SAT': 0, 'UNSAT': 40, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 16.2 — Intervals for LHS variables: ('B2', 'B1'), RHS candidate: B2
@@ -1339,7 +1629,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1347,13 +1637,15 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(b*k_x_1) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_1 >= 0 + b + a*ToInt(b**2),
+ b*k_x_1 <= 0 + a*b + b*ToInt(a**2),
  1 <= b*k_x_2,
- ToReal(b*k_x_2) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_2) != b**2*ToReal(k))),
- ToReal(b*k_x_3) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_2 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_2 != ToInt(b**2)*k)),
+ b*k_x_3 >= 0 + b + a*ToInt(b**2),
+ b*k_x_3 <= 0 + a*b + b*ToInt(a**2),
+ x_3 >= 0 + 1 + a + b*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**2) + ToInt(a**3) + a*ToInt(b**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1362,7 +1654,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B2
-Case time: 0.37; Elapsed time: 4.39; Current counts: {'SAT': 0, 'UNSAT': 41, 'UNKNOWN': 0}
+Case time: 0.08; Elapsed time: 9.20; Current counts: {'SAT': 0, 'UNSAT': 41, 'UNKNOWN': 0}
 ############################################################################
 
 Case 17 — Intervals for LHS variables: ('B2', 'B2'), RHS interval candidates: ['B1', 'B2']
@@ -1374,7 +1666,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1382,13 +1674,15 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(b*k_x_1) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ToReal(b*k_x_2) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_1 >= 0 + b + a*ToInt(b**2),
+ b*k_x_1 <= 0 + a*b + b*ToInt(a**2),
+ b*k_x_2 >= 0 + b + a*ToInt(b**2),
+ b*k_x_2 <= 0 + a*b + b*ToInt(a**2),
  1 <= b*k_x_3,
- ToReal(b*k_x_3) <= ToReal(a)*b**2,
- ForAll(k, And(k > 0, ToReal(x_3) != b**2*ToReal(k))),
+ b*k_x_3 <= a*ToInt(b**2),
+ ForAll(k, And(k > 0, x_3 != ToInt(b**2)*k)),
+ x_3 >= 0 + a + b + a*ToInt(b**2) + b*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**2) + ToInt(a**3) + a*b + b*ToInt(a**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1397,7 +1691,7 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B1
-Case time: 0.13; Elapsed time: 4.51; Current counts: {'SAT': 0, 'UNSAT': 42, 'UNKNOWN': 0}
+Case time: 0.12; Elapsed time: 9.32; Current counts: {'SAT': 0, 'UNSAT': 42, 'UNKNOWN': 0}
 ############################################################################
 ############################################################################
 Case 17.2 — Intervals for LHS variables: ('B2', 'B2'), RHS candidate: B2
@@ -1407,7 +1701,7 @@ INPUT CONSTRAINTS in Z3:
  4 <= a,
  3 <= b,
  a > b,
- ToReal(0 + a + b) + a**2 > 0 + b**2 + ToReal(a*b),
+ 0 + a + b + ToInt(a**2) > 0 + ToInt(b**2) + a*b,
  If(ForAll(t_gcd_check,
           Or(t_gcd_check <= 1,
              a%t_gcd_check != 0,
@@ -1415,12 +1709,14 @@ INPUT CONSTRAINTS in Z3:
    1,
    0) ==
 1,
- ToReal(b*k_x_1) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_1) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ToReal(b*k_x_2) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_2) <= ToReal(0 + a*b) + ToReal(b)*a**2,
- ToReal(b*k_x_3) >= ToReal(0 + 1) + ToReal(a)*b**2,
- ToReal(b*k_x_3) <= ToReal(0 + a*b) + ToReal(b)*a**2,
+ b*k_x_1 >= 0 + b + a*ToInt(b**2),
+ b*k_x_1 <= 0 + a*b + b*ToInt(a**2),
+ b*k_x_2 >= 0 + b + a*ToInt(b**2),
+ b*k_x_2 <= 0 + a*b + b*ToInt(a**2),
+ b*k_x_3 >= 0 + b + a*ToInt(b**2),
+ b*k_x_3 <= 0 + a*b + b*ToInt(a**2),
+ x_3 >= 0 + a + b + a*ToInt(b**2) + b*ToInt(a**2),
+ x_3 <= 0 + ToInt(a**2) + ToInt(a**3) + a*b + b*ToInt(a**2),
  1 <= k_x_1,
  x_1 == b*k_x_1,
  1 <= k_x_2,
@@ -1429,12 +1725,12 @@ INPUT CONSTRAINTS in Z3:
  x_3 == b*k_x_3]
 
 Z3 OUTPUT: UNSAT ⇒ x_3 ∉ B2
-Case time: 0.06; Elapsed time: 4.58; Current counts: {'SAT': 0, 'UNSAT': 43, 'UNKNOWN': 0}
+Case time: 0.10; Elapsed time: 9.42; Current counts: {'SAT': 0, 'UNSAT': 43, 'UNKNOWN': 0}
 ############################################################################
 
 
 All cases led to contradiction?: True
 
-Total proof-generation time: 4.58
+Total proof-generation time: 9.42
 
 Total proof-subcases result summary: {'SAT': 0, 'UNSAT': 43, 'UNKNOWN': 0}

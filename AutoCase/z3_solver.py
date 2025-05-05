@@ -124,7 +124,7 @@ class Z3Solver:
             exp_z3 = self.sp_to_z3_expr(exp, z3_vars)
             if not (z3.is_expr(base_z3) and z3.is_expr(exp_z3)):
                 raise ValueError(f"Invalid power base or exponent: {base_z3}, {exp_z3}")
-            pow_expr = base_z3 ** exp_z3 # z3.ToInt(base_z3 ** exp_z3)    
+            pow_expr = z3.ToInt(base_z3 ** exp_z3)    
             return pow_expr
 
         elif hasattr(expr, "func") and expr.func.__name__ == 'Mod':
