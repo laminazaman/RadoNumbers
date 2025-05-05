@@ -1,55 +1,71 @@
 import sympy as sp
-
+from filtered_interval import FilteredInterval
+from filtered_intervals_colour_case_prover import FilteredIntervalsColorCaseProver
 import pprint
-from divitems import DivItems
-from interval import Interval
-from colour_case_prover import ColorCaseProver
 
-# Define variables
-a = sp.symbols('a', integer=True, positive=True)
+# Define symbolic variable and assumptions
+a = sp.Symbol('a', integer=True, positive=True)
+assumptions = [a >= 2]
 
-# Define P_0, P_1, ..., P_6 as Sympy intervals
-P0 = sp.Interval(1, a)
-P1 = sp.Interval(a+1, a**2 + 2*a)
-P2 = sp.Interval(a**2 + 2*a + 1, a**2 + 3*a)
-P3 = sp.Interval(a**2 + 3*a + 1, a**3 + 4*a**2 + 4*a)
-P4 = sp.Interval(a**3 + 4*a**2 + 4*a + 1, a**3 + 4*a**2 + 5*a)
-P5 = sp.Interval(a**3 + 4*a**2 + 5*a + 1, a**3 + 5*a**2 + 6*a)
-P6 = sp.Interval(a**3 + 5*a**2 + 6*a + 1, a**3 + 5*a**2 + 7*a)
+# Define symbolic partitions
+P0 = (1, a)
+P1 = (a + 1, a**2 + 2*a)
+P2 = (a**2 + 2*a + 1, a**2 + 3*a)
+P3 = (a**2 + 3*a + 1, a**3 + 4*a**2 + 4*a)
+P4 = (a**3 + 4*a**2 + 4*a + 1, a**3 + 4*a**2 + 5*a)
+P5 = (a**3 + 4*a**2 + 5*a + 1, a**3 + 5*a**2 + 6*a)
+P6 = (a**3 + 5*a**2 + 6*a + 1, a**3 + 5*a**2 + 7*a)
 
-substitution = {a: 1}
-
+# Define total bound
 n = a**3 + 5*a**2 + 7*a
 
-# Define the filtered sets as custom-defined intervals
-D1 = Interval([a], P0, DivItems([]), substitution)
-D2 = Interval([a], P2, DivItems([]), substitution)
-D3 = Interval([a], P4, DivItems([]), substitution)
-D4 = Interval([a], P6, DivItems([]), substitution)
+# Define filtered intervals with symbolic bounds
+D1 = FilteredInterval([a], bounds=P0)
+D2 = FilteredInterval([a], bounds=P2)
+D3 = FilteredInterval([a], bounds=P4)
+D4 = FilteredInterval([a], bounds=P6)
+R1 = FilteredInterval([a], bounds=P1)
+R2 = FilteredInterval([a], bounds=P5)
+B1 = FilteredInterval([a], bounds=P3)
 
-R1 = Interval([a], P1, DivItems([]), substitution)
-R2 = Interval([a], P5, DivItems([]), substitution)
+# Initialize symbolic prover
+prover = FilteredIntervalsColorCaseProver()
+prover.set_equation([a, 1, 1])
+prover.set_assumptions(assumptions)
+prover.set_statement("Example: For a ≥ 2, R_3(E(3, 0; a, 1, 1)) ≥ a^3 + 5a^2 + 7a + 1.")
 
-B1 = Interval([a], P3, DivItems([]), substitution)
+# Add intervals to the prover
+prover.add_interval("D1", D1)
+prover.add_interval("D2", D2)
+prover.add_interval("D3", D3)
+prover.add_interval("D4", D4)
+prover.add_interval("R1", R1)
+prover.add_interval("R2", R2)
+prover.add_interval("B1", B1)
 
+# Define colourings
+prover.add_intervals_to_colour(0, ["D1", "D2", "D3", "D4"])  # Colour 0
+prover.add_intervals_to_colour(1, ["R1", "R2"])              # Colour 1
+prover.add_intervals_to_colour(2, ["B1"])                    # Colour 2
 
-ccp = ColorCaseProver()
+print("Prover setup:")
+print("----------------------------------------------------------------------------")
+pprint.pprint(prover.get())
+print("----------------------------------------------------------------------------")
+print()
 
-ccp.set_equation([a, 1, 1])
-ccp.set_substitution(substitution)
-ccp.set_statement("Example: For a >= 1, R_3(E(3, 0; a, 1, 1)) >= a^3+5a^2+7a+1.")
+print("Partition check:")
+print("----------------------------------------------------------------------------")
+prover.check_partition(n)
+print("----------------------------------------------------------------------------")
+print()
 
-ccp.add_interval("D1", D1)
-ccp.add_interval("D2", D2)
-ccp.add_interval("D3", D3)
-ccp.add_interval("D4", D4)
-ccp.add_interval("R1", R1)
-ccp.add_interval("R2", R2)
-ccp.add_interval("B1", B1)
+# Generate and prove all colour cases
+colour_cases = prover.generate_cases(n)
+print("Colour cases:")
+print("----------------------------------------------------------------------------")
+pprint.pprint(colour_cases)
+print("----------------------------------------------------------------------------")
+print()
 
-ccp.add_intervals_to_colour(0, ["D1", "D2", "D3", "D4"])
-ccp.add_intervals_to_colour(1, ["R1", "R2"])
-ccp.add_intervals_to_colour(2, ["B1"])
-
-cases = ccp.generate_cases(n)
-ccp.generate_proof(cases)
+prover.generate_proof(colour_cases)

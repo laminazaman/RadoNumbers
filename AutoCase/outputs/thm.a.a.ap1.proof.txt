@@ -1,0 +1,2599 @@
+Prover setup:
+----------------------------------------------------------------------------
+{'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+ 'colouring': {0: ['D'],
+               1: ['R_l', 'R_r1', 'R_r2', 'R_r3'],
+               2: ['B_l', 'B_r1', 'B_r2', 'B_r3']},
+ 'equation': [a, a, a + 1],
+ 'intervals': {'B_l': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                       'constraints': [],
+                       'format_expr': a*i*(a + 1) + a*j + k,
+                       'format_ranges': {'i': ('0', 'a**2 - 1'),
+                                         'j': ('0', 'a'),
+                                         'k': ('1', '2*(j//2)')},
+                       'format_vars': ['i', 'j', 'k'],
+                       'lower': 1,
+                       'must_divide': [],
+                       'must_not_divide': [a],
+                       'symbols': [a],
+                       'upper': a**3*(a + 1) - 1},
+               'B_r1': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                        'constraints': [],
+                        'format_expr': a**4 + a**2*i,
+                        'format_ranges': {'i': ('1', 'a - 1')},
+                        'format_vars': ['i'],
+                        'lower': a**4 + a**2,
+                        'must_divide': [a**2],
+                        'must_not_divide': [],
+                        'symbols': [a],
+                        'upper': a**4 + a**3 - a**2},
+               'B_r2': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                        'constraints': [],
+                        'format_expr': a**3*i + a**2*j,
+                        'format_ranges': {'i': ('1', 'a - 1'),
+                                          'j': ('0', 'i - 1')},
+                        'format_vars': ['i', 'j'],
+                        'lower': a**3,
+                        'must_divide': [a**2],
+                        'must_not_divide': [],
+                        'symbols': [a],
+                        'upper': a**4 - 2*a**2},
+               'B_r3': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                        'constraints': [],
+                        'format_expr': a**3*i + a**2*i,
+                        'format_ranges': {'i': ('(a + 1)//2', 'a - 1')},
+                        'format_vars': ['i'],
+                        'lower': a**4/2 + a**3 + a**2/2,
+                        'must_divide': [a**2],
+                        'must_not_divide': [],
+                        'symbols': [a],
+                        'upper': a**4 - a**2},
+               'D': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                     'constraints': [],
+                     'format_expr': a*i*(a + 1) + a*j + a,
+                     'format_ranges': {'i': ('0', 'a**2 - 1'), 'j': ('0', 'a')},
+                     'format_vars': ['i', 'j'],
+                     'lower': a,
+                     'must_divide': [a],
+                     'must_not_divide': [a**2],
+                     'symbols': [a],
+                     'upper': a**4 + a**3 - a},
+               'R_l': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                       'constraints': [],
+                       'format_expr': a*i*(a + 1) + a*j + k,
+                       'format_ranges': {'i': ('0', 'a**2 - 1'),
+                                         'j': ('0', 'a'),
+                                         'k': ('2*(j//2)+1', 'a-1')},
+                       'format_vars': ['i', 'j', 'k'],
+                       'lower': 1,
+                       'must_divide': [],
+                       'must_not_divide': [a],
+                       'symbols': [a],
+                       'upper': a**3*(a + 1) - 1},
+               'R_r1': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                        'constraints': [],
+                        'format_expr': a**4*i,
+                        'format_ranges': {'i': ('1', '1')},
+                        'format_vars': ['i'],
+                        'lower': a**4,
+                        'must_divide': [a**2],
+                        'must_not_divide': [],
+                        'symbols': [a],
+                        'upper': a**4},
+               'R_r2': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                        'constraints': [],
+                        'format_expr': a**3*i + a**2*j,
+                        'format_ranges': {'i': ('0', 'a - 1'),
+                                          'j': ('i + 1', 'a - 1')},
+                        'format_vars': ['i', 'j'],
+                        'lower': a**2,
+                        'must_divide': [a**2],
+                        'must_not_divide': [a**3],
+                        'symbols': [a],
+                        'upper': a**4 - a**2},
+               'R_r3': {'assumptions': [a >= 7, Ne(Mod(a, 2), 0)],
+                        'constraints': [],
+                        'format_expr': a**3*i + a**2*i,
+                        'format_ranges': {'i': ('1', '(a - 1)//2')},
+                        'format_vars': ['i'],
+                        'lower': a**3 + a**2,
+                        'must_divide': [a**2],
+                        'must_not_divide': [a**3],
+                        'symbols': [a],
+                        'upper': a**4 - a**2}},
+ 'statement': 'R₃(E(3,0;a,a,a+1)) ≥ a³(a+1)'}
+----------------------------------------------------------------------------
+
+Partition check:
+----------------------------------------------------------------------------
+Partition is correct!
+----------------------------------------------------------------------------
+
+Colour cases:
+----------------------------------------------------------------------------
+{0: [[('D', 'D'), ['D']]],
+ 1: [[('R_l', 'R_l'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_l', 'R_r1'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_l', 'R_r2'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_l', 'R_r3'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r1', 'R_l'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r1', 'R_r1'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r1', 'R_r2'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r1', 'R_r3'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r2', 'R_l'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r2', 'R_r1'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r2', 'R_r2'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r2', 'R_r3'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r3', 'R_l'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r3', 'R_r1'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r3', 'R_r2'), ['R_l', 'R_r1', 'R_r2', 'R_r3']],
+     [('R_r3', 'R_r3'), ['R_l', 'R_r1', 'R_r2', 'R_r3']]],
+ 2: [[('B_l', 'B_l'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_l', 'B_r1'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_l', 'B_r2'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_l', 'B_r3'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r1', 'B_l'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r1', 'B_r1'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r1', 'B_r2'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r1', 'B_r3'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r2', 'B_l'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r2', 'B_r1'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r2', 'B_r2'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r2', 'B_r3'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r3', 'B_l'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r3', 'B_r1'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r3', 'B_r2'), ['B_l', 'B_r1', 'B_r2', 'B_r3']],
+     [('B_r3', 'B_r3'), ['B_l', 'B_r1', 'B_r2', 'B_r3']]]}
+----------------------------------------------------------------------------
+
+Case 1 — Intervals for LHS variables: ('D', 'D'), RHS interval candidates: ['D']
+############################################################################
+Case 1.1 — Intervals for LHS variables: ('D', 'D'), RHS candidate: D
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 == a*k_x_1,
+ k_x_1 > 0,
+ x_2 == a*k_x_2,
+ k_x_2 > 0,
+ x_3 == a*k_x_3,
+ k_x_3 > 0,
+ ToReal(x_1) != a**2*ToReal(k_x_1),
+ ToReal(x_2) != a**2*ToReal(k_x_2),
+ ToReal(x_3) != a**2*ToReal(k_x_3)]
+
+Contradiction by Lemma: [('divides', a, x_1), ('divides', a, x_2), ('divides', a, x_3), ('not_divides', a**2, x_1), ('not_divides', a**2, x_2), ('not_divides', a**2, x_3)] ⇒ No integer solution
+Case time: 9.73; Elapsed time: 9.73; Current counts: {'SAT': 0, 'UNSAT': 1, 'UNKNOWN': 0}
+############################################################################
+
+Case 2 — Intervals for LHS variables: ('R_l', 'R_l'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 2.1 — Intervals for LHS variables: ('R_l', 'R_l'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 9.77; Current counts: {'SAT': 0, 'UNSAT': 2, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 2.2 — Intervals for LHS variables: ('R_l', 'R_l'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 9.78; Current counts: {'SAT': 0, 'UNSAT': 3, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 2.3 — Intervals for LHS variables: ('R_l', 'R_l'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 9.80; Current counts: {'SAT': 0, 'UNSAT': 4, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 2.4 — Intervals for LHS variables: ('R_l', 'R_l'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 9.81; Current counts: {'SAT': 0, 'UNSAT': 5, 'UNKNOWN': 0}
+############################################################################
+
+Case 3 — Intervals for LHS variables: ('R_l', 'R_r1'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 3.1 — Intervals for LHS variables: ('R_l', 'R_r1'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 9.86; Current counts: {'SAT': 0, 'UNSAT': 6, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 3.2 — Intervals for LHS variables: ('R_l', 'R_r1'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 9.88; Current counts: {'SAT': 0, 'UNSAT': 7, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 3.3 — Intervals for LHS variables: ('R_l', 'R_r1'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 9.89; Current counts: {'SAT': 0, 'UNSAT': 8, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 3.4 — Intervals for LHS variables: ('R_l', 'R_r1'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 9.91; Current counts: {'SAT': 0, 'UNSAT': 9, 'UNKNOWN': 0}
+############################################################################
+
+Case 4 — Intervals for LHS variables: ('R_l', 'R_r2'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 4.1 — Intervals for LHS variables: ('R_l', 'R_r2'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 9.96; Current counts: {'SAT': 0, 'UNSAT': 10, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 4.2 — Intervals for LHS variables: ('R_l', 'R_r2'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 9.97; Current counts: {'SAT': 0, 'UNSAT': 11, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 4.3 — Intervals for LHS variables: ('R_l', 'R_r2'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 9.99; Current counts: {'SAT': 0, 'UNSAT': 12, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 4.4 — Intervals for LHS variables: ('R_l', 'R_r2'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.00; Current counts: {'SAT': 0, 'UNSAT': 13, 'UNKNOWN': 0}
+############################################################################
+
+Case 5 — Intervals for LHS variables: ('R_l', 'R_r3'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 5.1 — Intervals for LHS variables: ('R_l', 'R_r3'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 10.05; Current counts: {'SAT': 0, 'UNSAT': 14, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 5.2 — Intervals for LHS variables: ('R_l', 'R_r3'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.07; Current counts: {'SAT': 0, 'UNSAT': 15, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 5.3 — Intervals for LHS variables: ('R_l', 'R_r3'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 10.08; Current counts: {'SAT': 0, 'UNSAT': 16, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 5.4 — Intervals for LHS variables: ('R_l', 'R_r3'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.10; Current counts: {'SAT': 0, 'UNSAT': 17, 'UNKNOWN': 0}
+############################################################################
+
+Case 6 — Intervals for LHS variables: ('R_r1', 'R_l'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 6.1 — Intervals for LHS variables: ('R_r1', 'R_l'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 10.13; Current counts: {'SAT': 0, 'UNSAT': 18, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 6.2 — Intervals for LHS variables: ('R_r1', 'R_l'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.14; Current counts: {'SAT': 0, 'UNSAT': 19, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 6.3 — Intervals for LHS variables: ('R_r1', 'R_l'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 10.16; Current counts: {'SAT': 0, 'UNSAT': 20, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 6.4 — Intervals for LHS variables: ('R_r1', 'R_l'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.17; Current counts: {'SAT': 0, 'UNSAT': 21, 'UNKNOWN': 0}
+############################################################################
+
+Case 7 — Intervals for LHS variables: ('R_r1', 'R_r1'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 7.1 — Intervals for LHS variables: ('R_r1', 'R_r1'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 10.20; Current counts: {'SAT': 0, 'UNSAT': 22, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 7.2 — Intervals for LHS variables: ('R_r1', 'R_r1'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.21; Current counts: {'SAT': 0, 'UNSAT': 23, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 7.3 — Intervals for LHS variables: ('R_r1', 'R_r1'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.21; Current counts: {'SAT': 0, 'UNSAT': 24, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 7.4 — Intervals for LHS variables: ('R_r1', 'R_r1'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.22; Current counts: {'SAT': 0, 'UNSAT': 25, 'UNKNOWN': 0}
+############################################################################
+
+Case 8 — Intervals for LHS variables: ('R_r1', 'R_r2'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 8.1 — Intervals for LHS variables: ('R_r1', 'R_r2'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 10.26; Current counts: {'SAT': 0, 'UNSAT': 26, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 8.2 — Intervals for LHS variables: ('R_r1', 'R_r2'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.27; Current counts: {'SAT': 0, 'UNSAT': 27, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 8.3 — Intervals for LHS variables: ('R_r1', 'R_r2'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.28; Current counts: {'SAT': 0, 'UNSAT': 28, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 8.4 — Intervals for LHS variables: ('R_r1', 'R_r2'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.28; Current counts: {'SAT': 0, 'UNSAT': 29, 'UNKNOWN': 0}
+############################################################################
+
+Case 9 — Intervals for LHS variables: ('R_r1', 'R_r3'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 9.1 — Intervals for LHS variables: ('R_r1', 'R_r3'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 10.33; Current counts: {'SAT': 0, 'UNSAT': 30, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 9.2 — Intervals for LHS variables: ('R_r1', 'R_r3'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.33; Current counts: {'SAT': 0, 'UNSAT': 31, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 9.3 — Intervals for LHS variables: ('R_r1', 'R_r3'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.34; Current counts: {'SAT': 0, 'UNSAT': 32, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 9.4 — Intervals for LHS variables: ('R_r1', 'R_r3'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.35; Current counts: {'SAT': 0, 'UNSAT': 33, 'UNKNOWN': 0}
+############################################################################
+
+Case 10 — Intervals for LHS variables: ('R_r2', 'R_l'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 10.1 — Intervals for LHS variables: ('R_r2', 'R_l'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 10.39; Current counts: {'SAT': 0, 'UNSAT': 34, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 10.2 — Intervals for LHS variables: ('R_r2', 'R_l'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.40; Current counts: {'SAT': 0, 'UNSAT': 35, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 10.3 — Intervals for LHS variables: ('R_r2', 'R_l'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.42; Current counts: {'SAT': 0, 'UNSAT': 36, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 10.4 — Intervals for LHS variables: ('R_r2', 'R_l'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.43; Current counts: {'SAT': 0, 'UNSAT': 37, 'UNKNOWN': 0}
+############################################################################
+
+Case 11 — Intervals for LHS variables: ('R_r2', 'R_r1'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 11.1 — Intervals for LHS variables: ('R_r2', 'R_r1'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 10.46; Current counts: {'SAT': 0, 'UNSAT': 38, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 11.2 — Intervals for LHS variables: ('R_r2', 'R_r1'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.47; Current counts: {'SAT': 0, 'UNSAT': 39, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 11.3 — Intervals for LHS variables: ('R_r2', 'R_r1'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.48; Current counts: {'SAT': 0, 'UNSAT': 40, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 11.4 — Intervals for LHS variables: ('R_r2', 'R_r1'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.49; Current counts: {'SAT': 0, 'UNSAT': 41, 'UNKNOWN': 0}
+############################################################################
+
+Case 12 — Intervals for LHS variables: ('R_r2', 'R_r2'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 12.1 — Intervals for LHS variables: ('R_r2', 'R_r2'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 10.52; Current counts: {'SAT': 0, 'UNSAT': 42, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 12.2 — Intervals for LHS variables: ('R_r2', 'R_r2'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.52; Current counts: {'SAT': 0, 'UNSAT': 43, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 12.3 — Intervals for LHS variables: ('R_r2', 'R_r2'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.53; Current counts: {'SAT': 0, 'UNSAT': 44, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 12.4 — Intervals for LHS variables: ('R_r2', 'R_r2'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.54; Current counts: {'SAT': 0, 'UNSAT': 45, 'UNKNOWN': 0}
+############################################################################
+
+Case 13 — Intervals for LHS variables: ('R_r2', 'R_r3'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 13.1 — Intervals for LHS variables: ('R_r2', 'R_r3'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 10.57; Current counts: {'SAT': 0, 'UNSAT': 46, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 13.2 — Intervals for LHS variables: ('R_r2', 'R_r3'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.58; Current counts: {'SAT': 0, 'UNSAT': 47, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 13.3 — Intervals for LHS variables: ('R_r2', 'R_r3'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.59; Current counts: {'SAT': 0, 'UNSAT': 48, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 13.4 — Intervals for LHS variables: ('R_r2', 'R_r3'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.59; Current counts: {'SAT': 0, 'UNSAT': 49, 'UNKNOWN': 0}
+############################################################################
+
+Case 14 — Intervals for LHS variables: ('R_r3', 'R_l'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 14.1 — Intervals for LHS variables: ('R_r3', 'R_l'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 10.64; Current counts: {'SAT': 0, 'UNSAT': 50, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 14.2 — Intervals for LHS variables: ('R_r3', 'R_l'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 10.65; Current counts: {'SAT': 0, 'UNSAT': 51, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 14.3 — Intervals for LHS variables: ('R_r3', 'R_l'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 10.67; Current counts: {'SAT': 0, 'UNSAT': 52, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 14.4 — Intervals for LHS variables: ('R_r3', 'R_l'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 10.68; Current counts: {'SAT': 0, 'UNSAT': 53, 'UNKNOWN': 0}
+############################################################################
+
+Case 15 — Intervals for LHS variables: ('R_r3', 'R_r1'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 15.1 — Intervals for LHS variables: ('R_r3', 'R_r1'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 10.73; Current counts: {'SAT': 0, 'UNSAT': 54, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 15.2 — Intervals for LHS variables: ('R_r3', 'R_r1'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.74; Current counts: {'SAT': 0, 'UNSAT': 55, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 15.3 — Intervals for LHS variables: ('R_r3', 'R_r1'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.74; Current counts: {'SAT': 0, 'UNSAT': 56, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 15.4 — Intervals for LHS variables: ('R_r3', 'R_r1'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.75; Current counts: {'SAT': 0, 'UNSAT': 57, 'UNKNOWN': 0}
+############################################################################
+
+Case 16 — Intervals for LHS variables: ('R_r3', 'R_r2'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 16.1 — Intervals for LHS variables: ('R_r3', 'R_r2'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 10.79; Current counts: {'SAT': 0, 'UNSAT': 58, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 16.2 — Intervals for LHS variables: ('R_r3', 'R_r2'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.80; Current counts: {'SAT': 0, 'UNSAT': 59, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 16.3 — Intervals for LHS variables: ('R_r3', 'R_r2'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.80; Current counts: {'SAT': 0, 'UNSAT': 60, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 16.4 — Intervals for LHS variables: ('R_r3', 'R_r2'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.81; Current counts: {'SAT': 0, 'UNSAT': 61, 'UNKNOWN': 0}
+############################################################################
+
+Case 17 — Intervals for LHS variables: ('R_r3', 'R_r3'), RHS interval candidates: ['R_l', 'R_r1', 'R_r2', 'R_r3']
+############################################################################
+Case 17.1 — Intervals for LHS variables: ('R_r3', 'R_r3'), RHS candidate: R_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 10.84; Current counts: {'SAT': 0, 'UNSAT': 62, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 17.2 — Intervals for LHS variables: ('R_r3', 'R_r3'), RHS candidate: R_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.85; Current counts: {'SAT': 0, 'UNSAT': 63, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 17.3 — Intervals for LHS variables: ('R_r3', 'R_r3'), RHS candidate: R_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.85; Current counts: {'SAT': 0, 'UNSAT': 64, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 17.4 — Intervals for LHS variables: ('R_r3', 'R_r3'), RHS candidate: R_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.86; Current counts: {'SAT': 0, 'UNSAT': 65, 'UNKNOWN': 0}
+############################################################################
+
+Case 18 — Intervals for LHS variables: ('B_l', 'B_l'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 18.1 — Intervals for LHS variables: ('B_l', 'B_l'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 10.89; Current counts: {'SAT': 0, 'UNSAT': 66, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 18.2 — Intervals for LHS variables: ('B_l', 'B_l'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.90; Current counts: {'SAT': 0, 'UNSAT': 67, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 18.3 — Intervals for LHS variables: ('B_l', 'B_l'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.92; Current counts: {'SAT': 0, 'UNSAT': 68, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 18.4 — Intervals for LHS variables: ('B_l', 'B_l'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 10.93; Current counts: {'SAT': 0, 'UNSAT': 69, 'UNKNOWN': 0}
+############################################################################
+
+Case 19 — Intervals for LHS variables: ('B_l', 'B_r1'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 19.1 — Intervals for LHS variables: ('B_l', 'B_r1'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.06; Elapsed time: 10.99; Current counts: {'SAT': 0, 'UNSAT': 70, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 19.2 — Intervals for LHS variables: ('B_l', 'B_r1'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.00; Current counts: {'SAT': 0, 'UNSAT': 71, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 19.3 — Intervals for LHS variables: ('B_l', 'B_r1'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 11.02; Current counts: {'SAT': 0, 'UNSAT': 72, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 19.4 — Intervals for LHS variables: ('B_l', 'B_r1'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.03; Current counts: {'SAT': 0, 'UNSAT': 73, 'UNKNOWN': 0}
+############################################################################
+
+Case 20 — Intervals for LHS variables: ('B_l', 'B_r2'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 20.1 — Intervals for LHS variables: ('B_l', 'B_r2'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 11.09; Current counts: {'SAT': 0, 'UNSAT': 74, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 20.2 — Intervals for LHS variables: ('B_l', 'B_r2'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.10; Current counts: {'SAT': 0, 'UNSAT': 75, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 20.3 — Intervals for LHS variables: ('B_l', 'B_r2'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.11; Current counts: {'SAT': 0, 'UNSAT': 76, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 20.4 — Intervals for LHS variables: ('B_l', 'B_r2'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.13; Current counts: {'SAT': 0, 'UNSAT': 77, 'UNKNOWN': 0}
+############################################################################
+
+Case 21 — Intervals for LHS variables: ('B_l', 'B_r3'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 21.1 — Intervals for LHS variables: ('B_l', 'B_r3'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.06; Elapsed time: 11.19; Current counts: {'SAT': 0, 'UNSAT': 78, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 21.2 — Intervals for LHS variables: ('B_l', 'B_r3'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.20; Current counts: {'SAT': 0, 'UNSAT': 79, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 21.3 — Intervals for LHS variables: ('B_l', 'B_r3'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 11.22; Current counts: {'SAT': 0, 'UNSAT': 80, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 21.4 — Intervals for LHS variables: ('B_l', 'B_r3'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ x_1 != a*k_x_1,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('not_divides', a, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.23; Current counts: {'SAT': 0, 'UNSAT': 81, 'UNKNOWN': 0}
+############################################################################
+
+Case 22 — Intervals for LHS variables: ('B_r1', 'B_l'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 22.1 — Intervals for LHS variables: ('B_r1', 'B_l'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 11.28; Current counts: {'SAT': 0, 'UNSAT': 82, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 22.2 — Intervals for LHS variables: ('B_r1', 'B_l'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.29; Current counts: {'SAT': 0, 'UNSAT': 83, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 22.3 — Intervals for LHS variables: ('B_r1', 'B_l'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.30; Current counts: {'SAT': 0, 'UNSAT': 84, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 22.4 — Intervals for LHS variables: ('B_r1', 'B_l'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.32; Current counts: {'SAT': 0, 'UNSAT': 85, 'UNKNOWN': 0}
+############################################################################
+
+Case 23 — Intervals for LHS variables: ('B_r1', 'B_r1'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 23.1 — Intervals for LHS variables: ('B_r1', 'B_r1'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 11.36; Current counts: {'SAT': 0, 'UNSAT': 86, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 23.2 — Intervals for LHS variables: ('B_r1', 'B_r1'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.37; Current counts: {'SAT': 0, 'UNSAT': 87, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 23.3 — Intervals for LHS variables: ('B_r1', 'B_r1'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.38; Current counts: {'SAT': 0, 'UNSAT': 88, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 23.4 — Intervals for LHS variables: ('B_r1', 'B_r1'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.38; Current counts: {'SAT': 0, 'UNSAT': 89, 'UNKNOWN': 0}
+############################################################################
+
+Case 24 — Intervals for LHS variables: ('B_r1', 'B_r2'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 24.1 — Intervals for LHS variables: ('B_r1', 'B_r2'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 11.43; Current counts: {'SAT': 0, 'UNSAT': 90, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 24.2 — Intervals for LHS variables: ('B_r1', 'B_r2'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.44; Current counts: {'SAT': 0, 'UNSAT': 91, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 24.3 — Intervals for LHS variables: ('B_r1', 'B_r2'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.45; Current counts: {'SAT': 0, 'UNSAT': 92, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 24.4 — Intervals for LHS variables: ('B_r1', 'B_r2'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.45; Current counts: {'SAT': 0, 'UNSAT': 93, 'UNKNOWN': 0}
+############################################################################
+
+Case 25 — Intervals for LHS variables: ('B_r1', 'B_r3'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 25.1 — Intervals for LHS variables: ('B_r1', 'B_r3'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.06; Elapsed time: 11.51; Current counts: {'SAT': 0, 'UNSAT': 94, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 25.2 — Intervals for LHS variables: ('B_r1', 'B_r3'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.53; Current counts: {'SAT': 0, 'UNSAT': 95, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 25.3 — Intervals for LHS variables: ('B_r1', 'B_r3'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.54; Current counts: {'SAT': 0, 'UNSAT': 96, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 25.4 — Intervals for LHS variables: ('B_r1', 'B_r3'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.55; Current counts: {'SAT': 0, 'UNSAT': 97, 'UNKNOWN': 0}
+############################################################################
+
+Case 26 — Intervals for LHS variables: ('B_r2', 'B_l'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 26.1 — Intervals for LHS variables: ('B_r2', 'B_l'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 11.60; Current counts: {'SAT': 0, 'UNSAT': 98, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 26.2 — Intervals for LHS variables: ('B_r2', 'B_l'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 11.62; Current counts: {'SAT': 0, 'UNSAT': 99, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 26.3 — Intervals for LHS variables: ('B_r2', 'B_l'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.02; Elapsed time: 11.64; Current counts: {'SAT': 0, 'UNSAT': 100, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 26.4 — Intervals for LHS variables: ('B_r2', 'B_l'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.65; Current counts: {'SAT': 0, 'UNSAT': 101, 'UNKNOWN': 0}
+############################################################################
+
+Case 27 — Intervals for LHS variables: ('B_r2', 'B_r1'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 27.1 — Intervals for LHS variables: ('B_r2', 'B_r1'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 11.69; Current counts: {'SAT': 0, 'UNSAT': 102, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 27.2 — Intervals for LHS variables: ('B_r2', 'B_r1'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.70; Current counts: {'SAT': 0, 'UNSAT': 103, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 27.3 — Intervals for LHS variables: ('B_r2', 'B_r1'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.71; Current counts: {'SAT': 0, 'UNSAT': 104, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 27.4 — Intervals for LHS variables: ('B_r2', 'B_r1'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.71; Current counts: {'SAT': 0, 'UNSAT': 105, 'UNKNOWN': 0}
+############################################################################
+
+Case 28 — Intervals for LHS variables: ('B_r2', 'B_r2'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 28.1 — Intervals for LHS variables: ('B_r2', 'B_r2'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 11.75; Current counts: {'SAT': 0, 'UNSAT': 106, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 28.2 — Intervals for LHS variables: ('B_r2', 'B_r2'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.75; Current counts: {'SAT': 0, 'UNSAT': 107, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 28.3 — Intervals for LHS variables: ('B_r2', 'B_r2'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.76; Current counts: {'SAT': 0, 'UNSAT': 108, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 28.4 — Intervals for LHS variables: ('B_r2', 'B_r2'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.77; Current counts: {'SAT': 0, 'UNSAT': 109, 'UNKNOWN': 0}
+############################################################################
+
+Case 29 — Intervals for LHS variables: ('B_r2', 'B_r3'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 29.1 — Intervals for LHS variables: ('B_r2', 'B_r3'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 11.82; Current counts: {'SAT': 0, 'UNSAT': 110, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 29.2 — Intervals for LHS variables: ('B_r2', 'B_r3'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.83; Current counts: {'SAT': 0, 'UNSAT': 111, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 29.3 — Intervals for LHS variables: ('B_r2', 'B_r3'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.84; Current counts: {'SAT': 0, 'UNSAT': 112, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 29.4 — Intervals for LHS variables: ('B_r2', 'B_r3'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.84; Current counts: {'SAT': 0, 'UNSAT': 113, 'UNKNOWN': 0}
+############################################################################
+
+Case 30 — Intervals for LHS variables: ('B_r3', 'B_l'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 30.1 — Intervals for LHS variables: ('B_r3', 'B_l'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 11.90; Current counts: {'SAT': 0, 'UNSAT': 114, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 30.2 — Intervals for LHS variables: ('B_r3', 'B_l'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.91; Current counts: {'SAT': 0, 'UNSAT': 115, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 30.3 — Intervals for LHS variables: ('B_r3', 'B_l'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.93; Current counts: {'SAT': 0, 'UNSAT': 116, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 30.4 — Intervals for LHS variables: ('B_r3', 'B_l'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ x_2 != a*k_x_2,
+ ToReal(x_3) == a**2*ToReal(k_x_3),
+ k_x_3 > 0]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('not_divides', a, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 11.94; Current counts: {'SAT': 0, 'UNSAT': 117, 'UNKNOWN': 0}
+############################################################################
+
+Case 31 — Intervals for LHS variables: ('B_r3', 'B_r1'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 31.1 — Intervals for LHS variables: ('B_r3', 'B_r1'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.05; Elapsed time: 11.99; Current counts: {'SAT': 0, 'UNSAT': 118, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 31.2 — Intervals for LHS variables: ('B_r3', 'B_r1'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.00; Current counts: {'SAT': 0, 'UNSAT': 119, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 31.3 — Intervals for LHS variables: ('B_r3', 'B_r1'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.00; Current counts: {'SAT': 0, 'UNSAT': 120, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 31.4 — Intervals for LHS variables: ('B_r3', 'B_r1'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.01; Current counts: {'SAT': 0, 'UNSAT': 121, 'UNKNOWN': 0}
+############################################################################
+
+Case 32 — Intervals for LHS variables: ('B_r3', 'B_r2'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 32.1 — Intervals for LHS variables: ('B_r3', 'B_r2'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.04; Elapsed time: 12.05; Current counts: {'SAT': 0, 'UNSAT': 122, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 32.2 — Intervals for LHS variables: ('B_r3', 'B_r2'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.06; Current counts: {'SAT': 0, 'UNSAT': 123, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 32.3 — Intervals for LHS variables: ('B_r3', 'B_r2'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.07; Current counts: {'SAT': 0, 'UNSAT': 124, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 32.4 — Intervals for LHS variables: ('B_r3', 'B_r2'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.07; Current counts: {'SAT': 0, 'UNSAT': 125, 'UNKNOWN': 0}
+############################################################################
+
+Case 33 — Intervals for LHS variables: ('B_r3', 'B_r3'), RHS interval candidates: ['B_l', 'B_r1', 'B_r2', 'B_r3']
+############################################################################
+Case 33.1 — Intervals for LHS variables: ('B_r3', 'B_r3'), RHS candidate: B_l
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a*x_1 + a*x_2 == (a + 1)*x_3,
+ a >= 7,
+ a%2 != 0,
+ And(x_1 >= 1, ToReal(x_1) <= a**3*ToReal(a + 1)),
+ And(x_2 >= 1, ToReal(x_2) <= a**3*ToReal(a + 1)),
+ And(x_3 >= 1, ToReal(x_3) <= a**3*ToReal(a + 1)),
+ ToReal(x_1) == a**2*ToReal(k_x_1),
+ k_x_1 > 0,
+ ToReal(x_2) == a**2*ToReal(k_x_2),
+ k_x_2 > 0,
+ x_3 != a*k_x_3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('not_divides', a, x_3)] ⇒ No integer solution
+Case time: 0.03; Elapsed time: 12.10; Current counts: {'SAT': 0, 'UNSAT': 126, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 33.2 — Intervals for LHS variables: ('B_r3', 'B_r3'), RHS candidate: B_r1
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.11; Current counts: {'SAT': 0, 'UNSAT': 127, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 33.3 — Intervals for LHS variables: ('B_r3', 'B_r3'), RHS candidate: B_r2
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.12; Current counts: {'SAT': 0, 'UNSAT': 128, 'UNKNOWN': 0}
+############################################################################
+############################################################################
+Case 33.4 — Intervals for LHS variables: ('B_r3', 'B_r3'), RHS candidate: B_r3
+INPUT CONSTRAINTS in Z3:
+----------------------------------------------------------------------------
+[a >= 7,
+ a%2 != 0,
+ k1 >= 1,
+ k1 < a,
+ k2 >= 1,
+ k2 < a,
+ k3 >= 1,
+ k3 < a,
+ (k1 + k2)%(a + 1) == 0,
+ a*(k1 + k2) == (a + 1)*k3]
+
+Contradiction by Lemma: [('divides', a**2, x_1), ('divides', a**2, x_2), ('divides', a**2, x_3)] ⇒ No integer solution
+Case time: 0.01; Elapsed time: 12.12; Current counts: {'SAT': 0, 'UNSAT': 129, 'UNKNOWN': 0}
+############################################################################
+
+
+All cases led to contradiction?: True
+
+Total proof-generation time: 12.12
+
+Total proof-subcases result summary: {'SAT': 0, 'UNSAT': 129, 'UNKNOWN': 0}
