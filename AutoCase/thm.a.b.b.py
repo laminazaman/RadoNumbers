@@ -7,11 +7,10 @@ import pprint
 a, b = sp.symbols('a b', integer=True)
 x_1, x_2, x_3 = sp.symbols('x_1 x_2 x_3', integer=True)
 
-GCD = sp.Function("gcd")
 # Define assumptions
 assumptions = [
     a >= 4, b >= 3, a > b, a**2 + a + b > b**2 + a * b, 
-    sp.Eq(GCD(a, b), 1, evaluate=False)
+    sp.Eq(sp.Function("coprime")(a, b), 1, evaluate=False)
     ]
 
 # Define total endpoint
@@ -34,6 +33,7 @@ prover.add_interval("R1", R1)
 
 R2 = FilteredInterval([a, b], assumptions)
 R2.set_bounds(b**2, b**2 * a)
+R2.add_must_divide(b)
 R2.add_must_divide(b**2)
 prover.add_interval("R2", R2)
 
@@ -65,13 +65,6 @@ prover.add_interval("D2", D2)
 prover.add_intervals_to_colour(0, ["D1", "D2"])
 prover.add_intervals_to_colour(1, ["R1", "R2", "R3"])
 prover.add_intervals_to_colour(2, ["B1", "B2"])
-
-# Add contradiction theorems
-prover.add_contradiction_lemma([('divides', b**2, x_1), ('not_divides', b, x_2), ('not_divides', b, x_3)], "a.b.b")
-
-# ax_1+bx_2=bx_3 with 1 <= x_1,x_2,x_3 <= ab^2; implies ak_1+bk_2=bk_3 with 1 <= k_1, k_2, k_3 <=a
-# k_1 = (b/a)(k_3 - k_2).. no integer solution
-prover.add_contradiction_lemma([('divides', b**2, x_1), ('divides', b**2, x_2), ('divides', b**2, x_3)], "a.b.b")
 
 # Generate cases and proof
 print("Prover setup:")

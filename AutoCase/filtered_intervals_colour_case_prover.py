@@ -2,8 +2,9 @@ import sympy as sp
 from itertools import product
 from filtered_interval import FilteredInterval
 from z3_solver import Z3Solver
-from z3_utils import IntegralityLemmaChecker_a_a_ap1
-from z3_utils import IntegralityLemmaChecker_a_b_b
+from symbolic_size import SymbolicSize, simplify_floor_by_degree, symbolic_set, substitute_by_name
+from sympy import Basic
+
 import z3 as z3
 import pprint
 import time
@@ -15,33 +16,7 @@ class FilteredIntervalsColorCaseProver:
         self.equation = list()
         self.statement = ""
         self.assumptions = []
-        self.contradiction_lemmas = []
-        self.theorem = ""
-        self.lemma_outcomes = {}
     
-    def precompute_contradiction_lemmas(self):
-        if self.theorem == "a.a.ap1":
-            for i in range(len(self.contradiction_lemmas)):
-                thm = self.contradiction_lemmas[i]
-                result, duration, model, constraints = self.run_z3_proof_a_a_ap1(thm)
-                self.lemma_outcomes[tuple(thm)] = {
-                    'result': result,
-                    'duration': duration,
-                    'model': model,
-                    'constraints': constraints
-                }
-        elif self.theorem == "a.b.b":
-            for i in range(len(self.contradiction_lemmas)):
-                thm = self.contradiction_lemmas[i]
-                result, duration, model, constraints = self.run_z3_proof_a_b_b(thm)
-                self.lemma_outcomes[tuple(thm)] = {
-                    'result': result,
-                    'duration': duration,
-                    'model': model,
-                    'constraints': constraints
-                }
-
-
     def get(self):
         return {
             'statement': self.statement,
@@ -50,10 +25,6 @@ class FilteredIntervalsColorCaseProver:
             'equation': self.equation,
             'assumptions': self.assumptions
         }
-
-    def add_contradiction_lemma(self, lem, thm):
-        self.contradiction_lemmas.append(lem)
-        self.theorem = thm
 
     def set_statement(self, statement):
         self.statement = statement
@@ -88,7 +59,6 @@ class FilteredIntervalsColorCaseProver:
         for c in containments:
             lhs_intervals = [self.colouring[col][c[i]] for i in range(m - 1)]
             earliest_interval = sorted(lhs_intervals)[0]
-            #z_intervals = [name for name in self.colouring[col] if name >= earliest_interval]
             z_intervals = [name for name in self.colouring[col]]
             cases.append([tuple(lhs_intervals), z_intervals])
         return cases
@@ -103,92 +73,85 @@ class FilteredIntervalsColorCaseProver:
     def generate_cases(self, n):        
         return {c: self.generate_colour_cases(c) for c in self.colouring}
 
-    def get_z_expr(self, var_names=None):
-        import sympy as sp
-        n = len(self.equation)
-        if var_names is None:
-            var_names = [f'x{i+1}' for i in range(n)]
-        vars = sp.symbols(var_names)
-
-        lhs = sum(self.equation[i] * vars[i] for i in range(n - 1))
-        z = vars[-1]
-        return sp.solve(lhs - self.equation[-1] * z, z)[0]
-
     ########################################################################
-    def find_interval_for_var(self, var, lhs_intervals, rhs_interval):
-        var_str = str(var)
-        if var_str.startswith("x_"):
-            index = int(var_str.split("_")[1]) - 1
-            if index < len(lhs_intervals):
-                return self.intervals[lhs_intervals[index]]
-            elif index == len(lhs_intervals):
-                return self.intervals[rhs_interval]
-        return None
+    def extract_divisibility_tags(self, lhs_intervals, target):
+        div_tags = []
+        for i, interval in enumerate(lhs_intervals):
+            for d in self.intervals[interval].must_divide:
+                div_tags.append(('divides', d, f"x_{i+1}"))
+            for d in self.intervals[interval].must_not_divide:
+                div_tags.append(('not_divides', d, f"x_{i+1}"))
 
-    def run_z3_proof_a_a_ap1(self, thm):
-        a = z3.Int("a")
-        x1, x2, x3 = z3.Ints("x_1 x_2 x_3")
+        for d in self.intervals[target].must_divide:
+            div_tags.append(('divides', d, f"x_{len(lhs_intervals)+1}"))
+        for d in self.intervals[target].must_not_divide:
+            div_tags.append(('not_divides', d, f"x_{len(lhs_intervals)+1}"))
+        return div_tags
 
-        equation = a * x1 + a * x2 == (a + 1) * x3
-        assumptions = [a >= 7, a % 2 != 0]
-        upper_bound_expr = z3.Int('a')**3 * (z3.Int('a')+1) # 'a**3 * (a + 1)'
-        div_tags = [(c[0], str(c[1]), str(c[2])) for c in thm]
+    def parse_sympy_expr(self, expr, z3_vars):
+        if isinstance(expr, sp.Basic):
+            # Add any missing symbols as Z3 variables
+            for sym in expr.free_symbols:
+                name = str(sym)
+                if name not in z3_vars:
+                    z3_vars[name] = z3.Int(name)
 
-        checker = IntegralityLemmaChecker_a_a_ap1(equation, assumptions, upper_bound_expr)
+            expr_str = str(expr)
+            return eval(expr_str, {}, z3_vars)
 
-        if tuple(div_tags) == tuple([('divides', 'a**2', 'x_1'), ('divides', 'a**2', 'x_2'), ('divides', 'a**2', 'x_3')]):
-            res, duration, reason, z3_cons = checker.prove_no_solution_Rr_case()
-        else:
-            res, duration, reason, z3_cons = checker.prove_no_integer_solution(div_tags)
-        return (True, duration, thm, z3_cons) if res == z3.unsat else (False, duration, reason, z3_cons)
+        elif isinstance(expr, int):
+            return z3.IntVal(expr)
 
-    def run_z3_proof_a_b_b(self, thm):
-        a = z3.Int("a")
-        b = z3.Int("b")
-        x1, x2, x3 = z3.Ints("x_1 x_2 x_3")
-       
-        equation = a * x1 + b * x2 == b * x3
-        assumptions = [a >= 4, b >= 3, a > b, a**2 + a + b > b**2 + a * b, a % 2 != 0]
-        upper_bound_expr = 'a**3 + a**2 + (2*b + 1) * a'
-        div_tags = [(c[0], str(c[1]), str(c[2])) for c in thm]
+        elif isinstance(expr, z3.ExprRef):
+            return expr
 
-        checker = IntegralityLemmaChecker_a_b_b(equation, assumptions, upper_bound_expr)
-
-        res, duration, reason, z3_cons = checker.prove_no_integer_solution(div_tags)
-        return (True, duration, thm, z3_cons) if res == z3.unsat else (False, duration, reason, z3_cons)
+        raise ValueError(f"Unsupported expression type: {type(expr)} — {expr}")
 
 
-    def contradiction_by_lemma(self, lhs_intervals, rhs_interval):
-        result = False
-        eq = self.equation
-        if len(eq) != 3: return False, None, None
+    def check_equation_with_div_tags_sympy(self, sympy_eq, div_tags, extra_assumptions=None):
+        solver = z3.Solver()
+        z3_vars = {}
 
-        if self.theorem not in ['a.a.ap1', 'a.b.b']: return False, None, None
+        def get_z3_var(name):
+            if name not in z3_vars:
+                z3_vars[name] = z3.Int(name)
+            return z3_vars[name]
 
-        for i in range(len(self.contradiction_lemmas)):
-            thm = self.contradiction_lemmas[i]
-            
-            result = True  
-            for condition in thm:
-                cond, d, var = condition[0], condition[1], str(condition[2])
-                interval = self.find_interval_for_var(var, lhs_intervals, rhs_interval)
-                if cond == 'divides':
-                    result = result and (d in interval.must_divide)
-                elif cond == 'not_divides':
-                    result = result and (d in interval.must_not_divide)
-            if result == True:
-                if tuple(thm) in self.lemma_outcomes:
-                    x = self.lemma_outcomes[tuple(thm)]
-                    return x['result'], x['model'], x['constraints']                     
-        return result, None, None
-    ########################################################################
+        # Add divisibility constraints
+        for tag, d_expr, var_name in div_tags:
+            x = get_z3_var(var_name)
+            d = self.parse_sympy_expr(d_expr, z3_vars)
+
+            if tag == 'divides':
+                k = z3.Int(f'k_{var_name}')
+                solver.add(k > 0, x == d * k)
+
+            elif tag == 'not_divides':
+                k = z3.Int(f'k_{var_name}')
+                solver.add(z3.ForAll([k], z3.And(k>0, x != d * k)))
+                
+
+            else:
+                raise ValueError(f"Unknown tag: {tag}")
+
+        # Add equation
+        lhs = self.parse_sympy_expr(sympy_eq.lhs, z3_vars)
+        rhs = self.parse_sympy_expr(sympy_eq.rhs, z3_vars)
+        solver.add(lhs == rhs)
+
+        # Optional assumptions
+        if extra_assumptions:
+            for asm in extra_assumptions:
+                solver.add(asm)
+        solver.set("timeout", 10000)
+        result = solver.check()
+        model = solver.model() if result == z3.sat else None
+        return result, model, solver
+    
     def generate_proof(self, colour_cases):
         start = time.time()
         current_time = time.time()
         counts = {'SAT': 0, 'UNSAT': 0, 'UNKNOWN': 0}
-
-        self.precompute_contradiction_lemmas()
-        
 
         output = {}
         output_verified = True
@@ -220,46 +183,46 @@ class FilteredIntervalsColorCaseProver:
                     bound_contradiction = False
 
                     interval = self.intervals[target]
-                    res, reason, z3_cons = self.contradiction_by_lemma(lhs_intervals, target)
-                    
-                    if res == True:
-                        print('INPUT CONSTRAINTS in Z3:')
-                        print("----------------------------------------------------------------------------")
-                        pprint.pprint(z3_cons)
-                        print()
-
-                        print(f"Contradiction by Lemma: {reason} ⇒ No integer solution")
-                        counts['UNSAT'] += 1
-                    
-                        print(f"Case time: {time.time()-current_time:0.2f}; Elapsed time: {time.time()-start:0.2f}; Current counts: {counts}")
-                        current_time = time.time()
-                        print("############################################################################")
-                        continue
-                    else:
-                                                
-                        pass
                     eq_expr = sum(self.equation[i] * lhs_vars[i] for i in range(len(lhs_vars))) - self.equation[-1] * rhs_var
                     eq = sp.Eq(eq_expr, 0)
+                    div_tags = self.extract_divisibility_tags(lhs_intervals, target)
+                    
+                    if len(div_tags)>0:                        
+                        res, model, solver = self.check_equation_with_div_tags_sympy(eq, div_tags)
+                        if res == z3.unsat:
+                            print('INPUT CONSTRAINTS in Z3:')
+                            print("----------------------------------------------------------------------------")
+                            pprint.pprint(solver.assertions())
+                            print()
+                            print(f"Z3 OUTPUT: UNSAT => No integer solution exists")
+                            counts['UNSAT'] += 1
+                            print(f"Case time: {time.time()-current_time:0.2f}; Elapsed time: {time.time()-start:0.2f}; Current counts: {counts}")
+                            current_time = time.time()
+                            print("############################################################################")
+                            continue
+                            
                     assumptions = self.assumptions
                     constraints = self.get_all_constraints(lhs_vars, lhs_intervals, rhs_var, target)
                     constraints.extend([rhs_var >= z_min, rhs_var <= z_max])
                     vars = Z3Solver.extract_all_symbols(constraints)
-                    z3solver = Z3Solver(vars, constraints=[eq] + assumptions + constraints)
+                            
+                    z3solver = Z3Solver(vars, constraints=[eq] + assumptions + constraints, div_tags=div_tags)
                     print('INPUT CONSTRAINTS in Z3:')
                     print("----------------------------------------------------------------------------")
                     pprint.pprint(z3solver.constraints)
                     print()
-                    
+                            
                     result = z3solver.check()
                     if result == z3.unsat:
                         counts['UNSAT'] += 1
-                        print(f"Z3 OUTPUT: UNSAT ⇒ {rhs_var} ∉ {target}")
+                        print(f"Z3 OUTPUT: UNSAT => {rhs_var} not in {target}")
                     elif result == z3.sat:
                         counts['SAT'] += 1
                         output_verified = False
                         pprint.pprint(z3solver.model(result))
-                    else: counts['UNKNOWN'] += 1
-                    
+                    else: 
+                        counts['UNKNOWN'] += 1
+
                     print(f"Case time: {time.time()-current_time:0.2f}; Elapsed time: {time.time()-start:0.2f}; Current counts: {counts}")
                     current_time = time.time()
                     print("############################################################################")
@@ -344,15 +307,7 @@ class FilteredIntervalsColorCaseProver:
         all_constraints = all_constraints + self.get_constraints_for_an_interval(len(lhs_vars), rhs_var, rhs_interval)
                 
         return all_constraints
-
-    def symbolic_difference_less_than_one(self, expr1, expr2, variables):
-        from z3_solver import Z3Solver
-        diff = sp.simplify(expr1 - expr2)
-        constraint = sp.StrictLessThan(diff, 1)
-        solver = Z3Solver(vars=variables, constraints=[constraint])
-        check = solver.check()
-        return check, solver.model(check)
-
+        
     def covers_the_overall_interval(self, n):
         # Check symbolic disjointness
         disjoint = True
@@ -368,17 +323,21 @@ class FilteredIntervalsColorCaseProver:
                     pass
 
         sizes = []
-        for name in self.intervals:
-            expr = sp.simplify(self.intervals[name].symbolic_size())
-            expr = expr.replace(sp.floor, lambda x: sp.simplify(x))
-            expr = sp.simplify(expr, rational=True)
-            expr = sp.together(expr)
 
+        for name in self.intervals:
+            expr = SymbolicSize(self.intervals[name]).compute()
             sizes.append(expr)
-        total_size = sp.simplify(sum(sizes))
+        
         a = sp.Symbol('a', integer=True)
-        check, model = self.symbolic_difference_less_than_one(total_size, n, list(n.free_symbols))
-        matches = check 
+        b = sp.Symbol('b', integer=True)
+
+        total_size = sum(sizes)
+        total_size = substitute_by_name(total_size, {'a' : a, 'b': b})
+        n = substitute_by_name(n, {'a' : a, 'b': b})
+        total_size = simplify_floor_by_degree(total_size, a)
+        total_size = simplify_floor_by_degree(total_size, b)
+        
+        matches = sp.expand(total_size - n) == 0
         if not matches:
             print(f"Total symbolic size = {total_size}, expected = {n}")
             for name in self.intervals:
